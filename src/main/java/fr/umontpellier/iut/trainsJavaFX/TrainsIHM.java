@@ -28,13 +28,6 @@ public class TrainsIHM extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        try {
-            VBox root = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/plateau.fxml"));
-            primaryStage.setScene(new Scene(root));
-            primaryStage.show();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
         this.primaryStage = primaryStage;
         debuterJeu();
     }

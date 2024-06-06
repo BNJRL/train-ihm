@@ -7,6 +7,7 @@ import fr.umontpellier.iut.trainsJavaFX.mecanique.cartes.Carte;
 import fr.umontpellier.iut.trainsJavaFX.mecanique.cartes.ListeDeCartes;
 import javafx.collections.ListChangeListener;
 import javafx.event.EventHandler;
+import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -28,11 +29,17 @@ import javafx.scene.text.FontWeight;
  */
 public class VueDuJeu extends VBox {
 
+    @FXML
     private final IJeu jeu;
+    @FXML
     private VuePlateau plateau;
+    @FXML
     private Label instruction;
+    @FXML
     private Label nomJoueur;
+    @FXML
     private Button passer;
+    @FXML
     private HBox listeBoutons;
 
     public VueDuJeu(IJeu jeu) {
@@ -59,13 +66,12 @@ public class VueDuJeu extends VBox {
                     nomJoueur.setText(newValue.getNom());
                     listeBoutons.getChildren().clear();
                     ListeDeCartes l = newValue.mainProperty();
-                    for (Carte c : l) {
+                    for (ICarte c : l) {
                         Button but = new Button(c.getNom());
                         listeBoutons.getChildren().add(but);
 
                         but.setOnAction(event -> {
                             newValue.uneCarteDeLaMainAEteChoisie(c.getNom());
-                            //listeBoutons.getChildren().remove(but);
                         });
 
                     }
@@ -75,7 +81,6 @@ public class VueDuJeu extends VBox {
         for(IJoueur j : getJeu().getJoueurs()){
             j.mainProperty().addListener(changecartelistener);
         }
-        //   joueurCourantProperty().mainProperty().addListener(changecartelistener);
     }
 
     public IJeu getJeu() {
