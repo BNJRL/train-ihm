@@ -9,7 +9,9 @@ import fr.umontpellier.iut.trainsJavaFX.vues.VueDuJeu;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
@@ -26,6 +28,13 @@ public class TrainsIHM extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        try {
+            VBox root = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/plateau.fxml"));
+            primaryStage.setScene(new Scene(root));
+            primaryStage.show();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         this.primaryStage = primaryStage;
         debuterJeu();
     }
