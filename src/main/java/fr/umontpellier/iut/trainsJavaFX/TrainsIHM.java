@@ -41,14 +41,14 @@ public class TrainsIHM extends Application {
     }
 
     public void demarrerPartie() {
-       String[] nomsJoueurs;
-       Plateau plateau = Plateau.OSAKA;
-       if (avecVueChoixJoueurs) {
+        String[] nomsJoueurs;
+        Plateau plateau = Plateau.OSAKA;
+        if (avecVueChoixJoueurs) {
             nomsJoueurs = vueChoixJoueurs.getNomsJoueurs().toArray(new String[0]);
             plateau = vueChoixJoueurs.getPlateau();
-       } else {
+        } else {
             nomsJoueurs = new String[]{"John", "Paul"/*, "George", "Ringo"*/};
-       }
+        }
         // Tirer aléatoirement 8 cartes préparation
         List<String> cartesPreparation = new ArrayList<>(FabriqueListeDeCartes.getNomsCartesPreparation());
         Collections.shuffle(cartesPreparation);
@@ -88,7 +88,7 @@ public class TrainsIHM extends Application {
         alert.setContentText("On arrête de jouer ?");
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {*/
-            Platform.exit();
+        Platform.exit();
 //        }
     }
 
