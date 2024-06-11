@@ -3,6 +3,7 @@ package fr.umontpellier.iut.trainsJavaFX.vues;
 import fr.umontpellier.iut.trainsJavaFX.ICarte;
 import fr.umontpellier.iut.trainsJavaFX.IJeu;
 import fr.umontpellier.iut.trainsJavaFX.IJoueur;
+import fr.umontpellier.iut.trainsJavaFX.mecanique.Joueur;
 import fr.umontpellier.iut.trainsJavaFX.mecanique.cartes.Carte;
 import fr.umontpellier.iut.trainsJavaFX.mecanique.cartes.ListeDeCartes;
 import javafx.collections.ListChangeListener;
@@ -40,18 +41,41 @@ public class VueDuJeu extends VBox {
     @FXML
     private VueJoueurCourant joueurCourant;
     @FXML
+    private HBox basGauche;
+    @FXML
     private HBox autresJoueurs;
     @FXML
     private GridPane reserve;
+    @FXML
+    private Label instruction;
+    @FXML
+    private Button passer;
+    @FXML
+    private Label nomJoueur;
 
+    private List<VueJoueurCourant> vueJoueursCourantList;
     private List<VueAutresJoueurs> vueAutresJoueursList;
 
     public VueDuJeu(IJeu jeu) {
         this.jeu = jeu;
         plateau = new VuePlateau();
         reserve = new GridPane();
-        joueurCourant = new VueJoueurCourant(this);
+        passer = new Button("Passer");
+        nomJoueur = new Label();
+        instruction = new Label();
+        nomJoueur.setFont(Font.font("Arial", FontWeight.BOLD, 20));
+        instruction.setFont(Font.font("Arial", FontWeight.BOLD, 20));
         autresJoueurs = new HBox();
+
+
+        vueJoueursCourantList = new ArrayList<>();
+        for(IJoueur j : jeu.getJoueurs()){
+            VueJoueurCourant temp = new VueJoueurCourant(j);
+            vueJoueursCourantList.add(temp);
+            if(jeu.joueurCourantProperty().get() == j){
+                joueurCourant = temp;
+            }
+        }
 
         vueAutresJoueursList = new ArrayList<>();
         for(IJoueur j : jeu.getJoueurs()){
@@ -59,26 +83,42 @@ public class VueDuJeu extends VBox {
         }
 
         HBox centre = new HBox();
+        HBox ligneInstruction = new HBox();
+        basGauche = new HBox();
+        basGauche.getChildren().addAll(passer, joueurCourant);
+        ligneInstruction.getChildren().addAll(nomJoueur, instruction);
         getChildren().add(autresJoueurs);
         centre.getChildren().addAll(plateau, reserve);
-        getChildren().addAll(centre, joueurCourant);
+        getChildren().addAll(centre,ligneInstruction, basGauche);
     }
 
     public void creerBindings() {
+        joueurCourant.creerBindings();
+        passer.setOnAction(event  -> jeu.passerAEteChoisi());
+        instruction.textProperty().bind(jeu.instructionProperty());
         plateau.prefWidthProperty().bind(getScene().widthProperty());
         plateau.prefHeightProperty().bind(getScene().heightProperty());
         plateau.creerBindings();
-        joueurCourant.creerBindings();
         this.getJeu().joueurCourantProperty().addListener(
                 (source, oldValue, newValue) -> {
+                    nomJoueur.setText(newValue.getNom() + ": ");
                     autresJoueurs.getChildren().clear();
                     for(VueAutresJoueurs vAJ : vueAutresJoueursList){
                         if(!newValue.equals(vAJ.getJoueur())){
                             autresJoueurs.getChildren().add(vAJ);
+                        }else{
+                            for(VueJoueurCourant vJo : vueJoueursCourantList){
+                                if(vJo.getJoueur().equals(vAJ.getJoueur())){
+                                    joueurCourant = vJo;
+                                }
+                            }
                         }
                     }
                 }
         );
+
+
+
     }
 
     public IJeu getJeu() {

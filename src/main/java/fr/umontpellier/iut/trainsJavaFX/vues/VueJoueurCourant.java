@@ -1,6 +1,8 @@
 package fr.umontpellier.iut.trainsJavaFX.vues;
 
+import fr.umontpellier.iut.trainsJavaFX.GestionJeu;
 import fr.umontpellier.iut.trainsJavaFX.ICarte;
+import fr.umontpellier.iut.trainsJavaFX.IJeu;
 import fr.umontpellier.iut.trainsJavaFX.IJoueur;
 import fr.umontpellier.iut.trainsJavaFX.mecanique.cartes.ListeDeCartes;
 import javafx.collections.ListChangeListener;
@@ -27,17 +29,12 @@ import java.io.IOException;
 public class VueJoueurCourant extends HBox{
 
     @FXML
-    private Label nomJoueur;
-    @FXML
-    private Button passer;
-    @FXML
     private HBox listeBoutons;
     @FXML
-    private VueDuJeu vueDuJeu;
-    @FXML
-    private Label instruction;
+    private IJoueur joueur;
 
-    public VueJoueurCourant(VueDuJeu vueDuJeu) {
+
+    public VueJoueurCourant(IJoueur joueur) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/joueurCourant.fxml"));
             loader.setRoot(this);
@@ -46,16 +43,16 @@ public class VueJoueurCourant extends HBox{
         } catch (IOException e) {
             e.printStackTrace();
         }
-        this.vueDuJeu = vueDuJeu;
-        passer.setText("passer");
+        this.joueur = joueur ;
+    }
+
+    public IJoueur getJoueur() {
+        return joueur;
     }
 
     public void creerBindings(){
-        instruction.textProperty().bind(vueDuJeu.getJeu().instructionProperty());
-        passer.setOnAction(event -> vueDuJeu.getJeu().passerAEteChoisi());
-        vueDuJeu.getJeu().joueurCourantProperty().addListener(
+        GestionJeu.getJeu().joueurCourantProperty().addListener(
                 (source, oldValue, newValue) -> {
-                    nomJoueur.setText(newValue.getNom() + ": ");
                     listeBoutons.getChildren().clear();
                     ListeDeCartes l = newValue.mainProperty();
                     for (ICarte c : l) {
@@ -65,12 +62,10 @@ public class VueJoueurCourant extends HBox{
                         but.setOnAction(event -> {
                             newValue.uneCarteDeLaMainAEteChoisie(c.getNom());
                         });
-
                     }
                 }
         );
-
-        for(IJoueur j : vueDuJeu.getJeu().getJoueurs()){
+        for(IJoueur j : GestionJeu.getJeu().getJoueurs()){
             j.mainProperty().addListener(changecartelistener);
         }
     }
