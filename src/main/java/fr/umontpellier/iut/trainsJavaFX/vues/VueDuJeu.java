@@ -27,7 +27,9 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Cette classe correspond à la fenêtre principale de l'application.
@@ -62,6 +64,8 @@ public class VueDuJeu extends VBox {
     private List<VueJoueurCourant> vueJoueursCourantList;
     private List<VueAutresJoueurs> vueAutresJoueursList;
 
+    private Map<IJoueur, VueAutresJoueurs> mapVueAutreJoueur;
+
     public VueDuJeu(IJeu jeu) {
         this.jeu = jeu;
         plateau = new VuePlateau();
@@ -84,8 +88,11 @@ public class VueDuJeu extends VBox {
         }
 
         vueAutresJoueursList = new ArrayList<>();
+        mapVueAutreJoueur = new HashMap<>();
         for(IJoueur j : jeu.getJoueurs()){
-            vueAutresJoueursList.add(new VueAutresJoueurs(j));
+            mapVueAutreJoueur.put(j, new VueAutresJoueurs(j));
+            vueAutresJoueursList.add(mapVueAutreJoueur.get(j));
+
         }
 
         autresJoueurs.setSpacing((double) 900 /vueAutresJoueursList.size());
@@ -149,8 +156,31 @@ public class VueDuJeu extends VBox {
                 }
         );
 
+        this.joueurCourant.getJoueur().mainProperty().addListener(
+                (source, oldValue, newValue) -> {
+                    for(IJoueur j : this.jeu.getJoueurs()){
+                        System.out.println("La main change mdr");
+                        mapVueAutreJoueur.get(j).actualiserPointsVictoires();
+                    }
 
-
+                }
+        );
+        this.joueurCourant.getJoueur().cartesRecuesProperty().addListener(
+                (source, oldValue, newValue) -> {
+                    for(IJoueur j : this.jeu.getJoueurs()){
+                        System.out.println("Une carte a ete recue");
+                        mapVueAutreJoueur.get(j).actualiserPointsVictoires();
+                    }
+                }
+        );
+        this.joueurCourant.getJoueur().nbJetonsRailsProperty().addListener(
+                (source, oldValue, newValue) -> {
+                    for(IJoueur j : this.jeu.getJoueurs()){
+                        System.out.println("Un rail est posé");
+                        mapVueAutreJoueur.get(j).actualiserPointsVictoires();
+                    }
+                }
+        );
     }
 
     public IJeu getJeu() {

@@ -51,7 +51,7 @@ public class VueAutresJoueurs extends Pane {
         this.joueur = joueur;
 
         String couleurHex = CouleursJoueurs.couleursBackgroundJoueur.get(joueur.getCouleur());
-        this.rectangleJoueur.setFill(Color.web(couleurHex,0.5));
+        this.rectangleJoueur.setFill(Color.web(couleurHex,0.6));
         this.rectangleJoueur.setStroke(Color.web(couleurHex));
 
         this.nomJoueur.setText(String.valueOf(joueur.getNom()));
@@ -61,18 +61,17 @@ public class VueAutresJoueurs extends Pane {
     }
 
     public void creerBindings(){
-        this.joueur.scoreProperty().addListener(
-                (source,oldValue,newValue) ->{
-                    this.ptsVictoiresJoueur.setText(newValue.toString());
-                }
-        );
         this.joueur.nbJetonsRailsProperty().addListener(
                 (source,oldValue,newValue) ->{
                     this.nbRailsJoueur.setText(newValue.toString());
+                    actualiserPointsVictoires();
                 }
         );
     }
     public IJoueur getJoueur(){
         return this.joueur;
+    }
+    public void actualiserPointsVictoires(){
+        this.ptsVictoiresJoueur.setText(String.valueOf(this.joueur.getScoreTotal()));
     }
 }
