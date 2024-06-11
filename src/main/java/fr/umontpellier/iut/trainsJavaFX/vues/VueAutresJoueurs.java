@@ -1,10 +1,18 @@
 package fr.umontpellier.iut.trainsJavaFX.vues;
 
 import fr.umontpellier.iut.trainsJavaFX.IJoueur;
+import fr.umontpellier.iut.trainsJavaFX.mecanique.CouleurJoueur;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,9 +27,15 @@ import java.util.List;
 public class VueAutresJoueurs extends Pane {
 
     private IJoueur joueur;
-
-    private VueDuJeu vueDuJeu;
-
+    @FXML
+    private Rectangle rectangleJoueur;
+    @FXML
+    private Label nomJoueur;
+    @FXML
+    private Label ptsVictoiresJoueur;
+    @FXML
+    private Label nbRailsJoueur;
+    private String couleurJoueur;
 
     public VueAutresJoueurs(IJoueur joueur){
         try {
@@ -32,13 +46,31 @@ public class VueAutresJoueurs extends Pane {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        //this.nomJoueur = new Label(joueur.getNom());
+
         this.joueur = joueur;
-        this.vueDuJeu = vueDuJeu;
-        this.getChildren().add(new Label(joueur.getNom()));
+
+        String couleurHex = CouleursJoueurs.couleursBackgroundJoueur.get(joueur.getCouleur());
+        this.rectangleJoueur.setFill(Color.web(couleurHex,0.5));
+        this.rectangleJoueur.setStroke(Color.web(couleurHex));
+
+        this.nomJoueur.setText(String.valueOf(joueur.getNom()));
+        this.setScaleX(0.72);
+        this.setScaleY(0.72);
 
     }
 
     public void creerBindings(){
+        this.joueur.scoreProperty().addListener(
+                (source,oldValue,newValue) ->{
+                    this.ptsVictoiresJoueur.setText(newValue.toString());
+                }
+        );
+        this.joueur.nbJetonsRailsProperty().addListener(
+                (source,oldValue,newValue) ->{
+                    this.nbRailsJoueur.setText(newValue.toString());
+                }
+        );
     }
     public IJoueur getJoueur(){
         return this.joueur;

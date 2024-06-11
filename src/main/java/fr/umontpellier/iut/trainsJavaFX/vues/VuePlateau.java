@@ -204,8 +204,8 @@ public class VuePlateau extends Pane {
 
     public void setDonneesPlateau(Plateau plateau) {
         switch (plateau) {
-            case OSAKA -> this.plateau = DonneesPlateauBuilder.PLATEAU_OSAKA_CONTOUR;
-            case TOKYO -> this.plateau = DonneesPlateauBuilder.PLATEAU_TOKYO_CONTOUR;
+            case OSAKA -> this.plateau = DonneesPlateauBuilder.PLATEAU_OSAKA;
+            case TOKYO -> this.plateau = DonneesPlateauBuilder.PLATEAU_TOKYO;
         }
     }
 

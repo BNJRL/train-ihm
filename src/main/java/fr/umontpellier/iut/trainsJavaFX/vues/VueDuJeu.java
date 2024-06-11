@@ -9,14 +9,15 @@ import fr.umontpellier.iut.trainsJavaFX.mecanique.cartes.ListeDeCartes;
 import javafx.collections.ListChangeListener;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
@@ -67,7 +68,6 @@ public class VueDuJeu extends VBox {
         instruction.setFont(Font.font("Arial", FontWeight.BOLD, 20));
         autresJoueurs = new HBox();
 
-
         vueJoueursCourantList = new ArrayList<>();
         for(IJoueur j : jeu.getJoueurs()){
             VueJoueurCourant temp = new VueJoueurCourant(j);
@@ -82,14 +82,36 @@ public class VueDuJeu extends VBox {
             vueAutresJoueursList.add(new VueAutresJoueurs(j));
         }
 
+        autresJoueurs.setSpacing((double) 900 /vueAutresJoueursList.size());
+        autresJoueurs.setAlignment(Pos.CENTER);
+
         HBox centre = new HBox();
+
+
         HBox ligneInstruction = new HBox();
         basGauche = new HBox();
         basGauche.getChildren().addAll(passer, joueurCourant);
+
         ligneInstruction.getChildren().addAll(nomJoueur, instruction);
-        getChildren().add(autresJoueurs);
         centre.getChildren().addAll(plateau, reserve);
-        getChildren().addAll(centre,ligneInstruction, basGauche);
+
+        getChildren().addAll(autresJoueurs, centre, ligneInstruction, basGauche);
+        setMargin(centre,new Insets(150,0,0,0));
+
+        this.setSpacing(20);
+
+        ImageView fond = new ImageView("images/background.png");
+
+        BackgroundImage backgroundImage = new BackgroundImage(
+                fond.getImage(),
+                BackgroundRepeat.NO_REPEAT, // Répétition de l'image (aucune répétition)
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.DEFAULT, // Position de l'image (par défaut)
+                BackgroundSize.DEFAULT // Taille de l'image (par défaut)
+        );
+
+// Application de la BackgroundImage à la VBox
+        setBackground(new Background(backgroundImage));
     }
 
     public void creerBindings() {
@@ -99,6 +121,10 @@ public class VueDuJeu extends VBox {
         plateau.prefWidthProperty().bind(getScene().widthProperty());
         plateau.prefHeightProperty().bind(getScene().heightProperty());
         plateau.creerBindings();
+        joueurCourant.creerBindings();
+        for(VueAutresJoueurs vAJ : vueAutresJoueursList){
+            vAJ.creerBindings();
+        }
         this.getJeu().joueurCourantProperty().addListener(
                 (source, oldValue, newValue) -> {
                     nomJoueur.setText(newValue.getNom() + ": ");

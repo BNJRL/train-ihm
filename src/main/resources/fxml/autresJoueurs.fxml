@@ -1,10 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
-<fx:root type="Pane" stylesheets="@/css/style.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
+<fx:root prefHeight="139.0" prefWidth="254.0" stylesheets="@/css/style.css" type="Pane" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Rectangle fx:id="rectangleJoueur" arcHeight="20.0" arcWidth="40.0" fill="DODGERBLUE" height="139.0" stroke="BLACK" strokeType="INSIDE" width="254.0" />
+      <Label fx:id="nomJoueur" alignment="CENTER" layoutX="1.0" prefHeight="45.0" prefWidth="254.0" text="Benjamin">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Label>
+      <Line endX="134.0" layoutX="99.0" layoutY="46.0" opacity="0.5" startX="-78.5" />
+      <ImageView fitHeight="84.0" fitWidth="85.0" layoutX="36.0" layoutY="48.0">
+         <image>
+            <Image url="@../images/icons/star.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="93.0" fitWidth="91.0" layoutX="143.0" layoutY="48.0">
+         <image>
+            <Image url="@../images/icons/rail.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="ptsVictoiresJoueur" alignment="CENTER" layoutX="46.0" layoutY="64.0" prefHeight="60.0" prefWidth="64.0" text="0" textFill="WHITE">
+         <font>
+            <Font name="MathJax_Main-Bold" size="29.0" />
+         </font>
+         <effect>
+            <DropShadow blurType="GAUSSIAN" height="10.94" radius="5.9425" spread="0.65" width="14.83" />
+         </effect>
+      </Label>
+      <Label fx:id="nbRailsJoueur" alignment="CENTER" layoutX="157.0" layoutY="68.0" prefHeight="53.0" prefWidth="64.0" text="20" textFill="WHITE">
+         <font>
+            <Font name="MathJax_Main-Bold" size="30.0" />
+         </font>
+         <effect>
+            <DropShadow blurType="GAUSSIAN" height="12.99" radius="6.455" spread="0.65" width="14.83" />
+         </effect>
+      </Label>
+   </children>
 </fx:root>

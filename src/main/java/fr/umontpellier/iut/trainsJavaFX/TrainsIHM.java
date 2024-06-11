@@ -52,7 +52,7 @@ public class TrainsIHM extends Application {
             nomsJoueurs = vueChoixJoueurs.getNomsJoueurs().toArray(new String[0]);
             plateau = vueChoixJoueurs.getPlateau();
         } else {
-            nomsJoueurs = new String[]{"John", "Paul"/*, "George", "Ringo"*/};
+            nomsJoueurs = new String[]{"John", "Paul", "George", "Ringo"};
         }
         // Tirer aléatoirement 8 cartes préparation
         List<String> cartesPreparation = new ArrayList<>(FabriqueListeDeCartes.getNomsCartesPreparation());
