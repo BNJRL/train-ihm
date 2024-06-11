@@ -10,3 +10,9 @@ SVGPath {
     -fx-stroke: dodgerblue; // transparent
     -fx-stroke-width: 3px;
 }
+
+Label{
+    -fx-font-size: 20px ;
+    -fx-font-family: Arial;
+    -fx-font-weight: bold;
+}
