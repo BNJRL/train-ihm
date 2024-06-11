@@ -19,6 +19,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Cette classe correspond à la fenêtre principale de l'application.
  *
@@ -37,20 +40,28 @@ public class VueDuJeu extends VBox {
     @FXML
     private VueJoueurCourant joueurCourant;
     @FXML
-    private VueAutresJoueurs autresJoueurs;
+    private HBox autresJoueurs;
     @FXML
     private GridPane reserve;
+
+    private List<VueAutresJoueurs> vueAutresJoueursList;
 
     public VueDuJeu(IJeu jeu) {
         this.jeu = jeu;
         plateau = new VuePlateau();
         reserve = new GridPane();
         joueurCourant = new VueJoueurCourant(this);
-        autresJoueurs = new VueAutresJoueurs();
+        autresJoueurs = new HBox();
+
+        vueAutresJoueursList = new ArrayList<>();
+        for(IJoueur j : jeu.getJoueurs()){
+            vueAutresJoueursList.add(new VueAutresJoueurs(j));
+        }
 
         HBox centre = new HBox();
+        getChildren().add(autresJoueurs);
         centre.getChildren().addAll(plateau, reserve);
-        getChildren().addAll(autresJoueurs, centre, joueurCourant);
+        getChildren().addAll(centre, joueurCourant);
     }
 
     public void creerBindings() {
@@ -58,13 +69,21 @@ public class VueDuJeu extends VBox {
         plateau.prefHeightProperty().bind(getScene().heightProperty());
         plateau.creerBindings();
         joueurCourant.creerBindings();
+        this.getJeu().joueurCourantProperty().addListener(
+                (source, oldValue, newValue) -> {
+                    autresJoueurs.getChildren().clear();
+                    for(VueAutresJoueurs vAJ : vueAutresJoueursList){
+                        if(!newValue.equals(vAJ.getJoueur())){
+                            autresJoueurs.getChildren().add(vAJ);
+                        }
+                    }
+                }
+        );
     }
 
     public IJeu getJeu() {
         return jeu;
     }
-
-
 
     EventHandler<? super MouseEvent> actionPasserParDefaut = (mouseEvent -> System.out.println("Vous avez choisi Passer"));
 }
