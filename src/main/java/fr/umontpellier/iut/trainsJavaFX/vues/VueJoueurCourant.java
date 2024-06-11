@@ -9,9 +9,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
@@ -22,7 +24,7 @@ import java.io.IOException;
  * <p>
  * On y définit les bindings sur le joueur courant, ainsi que le listener à exécuter lorsque ce joueur change
  */
-public class VueJoueurCourant extends VBox {
+public class VueJoueurCourant extends HBox{
 
     @FXML
     private Label nomJoueur;
@@ -46,9 +48,6 @@ public class VueJoueurCourant extends VBox {
         }
         this.vueDuJeu = vueDuJeu;
         passer.setText("passer");
-
-
-
     }
 
     public void creerBindings(){
