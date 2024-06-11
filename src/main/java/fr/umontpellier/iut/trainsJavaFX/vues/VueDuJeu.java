@@ -53,7 +53,7 @@ public class VueDuJeu extends VBox {
     @FXML
     private HBox autresJoueurs;
     @FXML
-    private GridPane reserve;
+    private FlowPane reserve;
     @FXML
     private Label instruction;
     @FXML
@@ -65,11 +65,12 @@ public class VueDuJeu extends VBox {
     private List<VueAutresJoueurs> vueAutresJoueursList;
 
     private Map<IJoueur, VueAutresJoueurs> mapVueAutreJoueur;
+    private Map<ICarte, VueCarte> mapVueCarte;
 
     public VueDuJeu(IJeu jeu) {
         this.jeu = jeu;
         plateau = new VuePlateau();
-        reserve = new GridPane();
+        reserve = new FlowPane();
         passer = new Button("Passer");
         passer.setPrefSize(100, 500);
         nomJoueur = new Label();
@@ -94,6 +95,13 @@ public class VueDuJeu extends VBox {
             vueAutresJoueursList.add(mapVueAutreJoueur.get(j));
 
         }
+        /**
+        mapVueCarte = new HashMap<>();
+        for(ICarte c : jeu.getReserve()){
+            //mapVueCarte.put(c,new VueCarteReserve(c, jeu.getTaillesPilesReserveProperties().get(c.getNom()).intValue()));
+            reserve.getChildren().add(mapVueCarte.get(c));
+        }
+         */
 
         autresJoueurs.setSpacing((double) 900 /vueAutresJoueursList.size());
         autresJoueurs.setAlignment(Pos.CENTER);
@@ -106,10 +114,18 @@ public class VueDuJeu extends VBox {
         basGauche.getChildren().addAll(passer, joueurCourant);
 
         ligneInstruction.getChildren().addAll(nomJoueur, instruction);
-        centre.getChildren().addAll(plateau, reserve);
+        centre.getChildren().addAll(plateau);
 
         getChildren().addAll(autresJoueurs, centre, ligneInstruction, basGauche);
-        setMargin(centre,new Insets(150,0,0,0));
+        setMargin(centre,new Insets(120,0,0,0));
+        /**
+        reserve.setVgap(1);
+        reserve.setHgap(1);
+        /**
+        reserve.setScaleX(0.3);
+        reserve.setScaleY(0.3);
+         */
+        //setMargin(reserve, new Insets(-520, 0, 0, 0));
 
         this.setSpacing(20);
 

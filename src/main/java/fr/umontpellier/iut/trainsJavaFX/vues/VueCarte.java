@@ -1,9 +1,16 @@
 package fr.umontpellier.iut.trainsJavaFX.vues;
 
+import fr.umontpellier.iut.trainsJavaFX.ICarte;
 import fr.umontpellier.iut.trainsJavaFX.mecanique.cartes.Carte;
+import fr.umontpellier.iut.trainsJavaFX.mecanique.cartes.ListeDeCartes;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
+
+import java.io.IOException;
 
 /**
  * Cette classe représente la vue d'une carte.
@@ -13,13 +20,24 @@ import javafx.scene.layout.StackPane;
 public class VueCarte extends StackPane {
 
     private final Carte carte;
+    private Label image;
 
-    public VueCarte(Carte carte) {
-        this.carte = carte;
+    public VueCarte(ICarte carte) {
+        this.carte = (Carte) carte;
+        this.image = new Label();
+        image.setGraphic(new ImageView("images/cartes/"+convertisseurTexte(carte.getNom())+".jpg"));
+        getChildren().add(image);
     }
 
     public void setCarteChoisieListener(EventHandler<MouseEvent> quandCarteEstChoisie) {
         setOnMouseClicked(quandCarteEstChoisie);
     }
 
+    private String convertisseurTexte(String str){
+       return str.replaceAll(" ","_").replaceAll("ô","o").toLowerCase().replaceAll("é","e");
+    }
+
+    public Label getImage() {
+        return image;
+    }
 }
