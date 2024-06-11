@@ -6,17 +6,18 @@ import fr.umontpellier.iut.trainsJavaFX.IJoueur;
 import fr.umontpellier.iut.trainsJavaFX.mecanique.Joueur;
 import fr.umontpellier.iut.trainsJavaFX.mecanique.cartes.Carte;
 import fr.umontpellier.iut.trainsJavaFX.mecanique.cartes.ListeDeCartes;
+import javafx.beans.binding.Bindings;
 import javafx.collections.ListChangeListener;
+import javafx.css.Size;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
@@ -61,6 +62,7 @@ public class VueDuJeu extends VBox {
         plateau = new VuePlateau();
         reserve = new GridPane();
         passer = new Button("Passer");
+        passer.setPrefSize(100, 500);
         nomJoueur = new Label();
         instruction = new Label();
         nomJoueur.setFont(Font.font("Arial", FontWeight.BOLD, 20));
@@ -84,8 +86,11 @@ public class VueDuJeu extends VBox {
 
         HBox centre = new HBox();
         HBox ligneInstruction = new HBox();
+        ligneInstruction.setBackground(Background.fill(Paint.valueOf("#C45")));
         basGauche = new HBox();
         basGauche.getChildren().addAll(passer, joueurCourant);
+        basGauche.setAlignment(Pos.CENTER_LEFT);
+        basGauche.setSpacing(10);
         ligneInstruction.getChildren().addAll(nomJoueur, instruction);
         getChildren().add(autresJoueurs);
         centre.getChildren().addAll(plateau, reserve);
@@ -101,6 +106,7 @@ public class VueDuJeu extends VBox {
         plateau.creerBindings();
         this.getJeu().joueurCourantProperty().addListener(
                 (source, oldValue, newValue) -> {
+                    basGauche.setBackground(Background.fill(Paint.valueOf(CouleursJoueurs.couleursBackgroundJoueur.get(joueurCourant.getJoueur().getCouleur()))));
                     nomJoueur.setText(newValue.getNom() + ": ");
                     autresJoueurs.getChildren().clear();
                     for(VueAutresJoueurs vAJ : vueAutresJoueursList){
