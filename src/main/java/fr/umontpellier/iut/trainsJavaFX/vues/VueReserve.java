@@ -19,7 +19,7 @@ public class VueReserve extends GridPane {
     public VueReserve(){
         this.compteur = 0;
         this.val = 6;
-        setHgap(2);
+        setHgap(115);
         //setMaxWidth(400);
 
     }

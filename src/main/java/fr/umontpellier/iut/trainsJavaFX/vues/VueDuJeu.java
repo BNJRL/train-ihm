@@ -64,6 +64,8 @@ public class VueDuJeu extends VBox {
     @FXML
     private Label nomJoueur;
 
+    private HBox centre;
+
     private List<VueJoueurCourant> vueJoueursCourantList;
     private List<VueAutresJoueurs> vueAutresJoueursList;
 
@@ -111,7 +113,7 @@ public class VueDuJeu extends VBox {
         autresJoueurs.setSpacing((double) 900 /vueAutresJoueursList.size());
         autresJoueurs.setAlignment(Pos.CENTER);
 
-        HBox centre = new HBox();
+        centre = new HBox();
 
 
         HBox ligneInstruction = new HBox();
@@ -129,12 +131,14 @@ public class VueDuJeu extends VBox {
         bas.setAlignment(Pos.CENTER);
 
         getChildren().addAll(autresJoueurs,centre, bas);
-        setMargin(centre,new Insets(120,0,0,260));
-        //centre.setMaxSize(800,1000);
+        setMargin(centre,new Insets(120,0,0,12));
+        centre.setMaxSize(900,1920);
         double v = 0.4;
 
-        plateau.setMaxWidth(500);
-        centre.setSpacing(200);
+        plateau.setMaxWidth(900);
+        plateau.setLayoutY(0);
+        //centre.setSpacing(1000);
+
 
 
         this.setSpacing(20);
@@ -149,7 +153,6 @@ public class VueDuJeu extends VBox {
                 BackgroundSize.DEFAULT // Taille de l'image (par défaut)
         );
 
-// Application de la BackgroundImage à la VBox
         setBackground(new Background(backgroundImage));
     }
 
@@ -208,6 +211,8 @@ public class VueDuJeu extends VBox {
                     }
                 }
         );
+        centre.spacingProperty().bind((this).heightProperty());
+        reserve.prefHeightProperty().bind(plateau.prefHeightProperty());
     }
 
     public IJeu getJeu() {

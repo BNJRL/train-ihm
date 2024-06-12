@@ -56,19 +56,29 @@ public class VuePlateau extends Pane {
             e.printStackTrace();
         }
         scaleTuile = new Scale();
+
+        /**
+        scaleTuile.setX(1.045);
+        scaleTuile.setY(1.045);
+         */
+
+
         tuiles.getTransforms().add(scaleTuile);
     }
 
     public void creerBindings() {
         setDonneesPlateau(GestionJeu.getJeu().getPlateau());
         mapVille.setImage(plateau.getImageVille());
+
         definirScaleTransformation();
         bindRedimensionEtCentragePlateau();
+
         construirePlateau();
     }
 
     public void definirScaleTransformation() {
         Region conteneurParent = (Region) getParent();
+
         mapVille.fitWidthProperty().addListener((obs, oldVal, newVal) -> definirScalefacteur(conteneurParent.getWidth(), conteneurParent.getHeight()));
         mapVille.fitHeightProperty().addListener((obs, oldVal, newVal) -> definirScalefacteur(conteneurParent.getWidth(), conteneurParent.getHeight()));
     }
@@ -80,8 +90,10 @@ public class VuePlateau extends Pane {
     }
 
     private void bindRedimensionEtCentragePlateau() {
+
         mapVille.fitWidthProperty().bind(((Region) getParent()).widthProperty());
         mapVille.fitHeightProperty().bind(((Region) getParent()).heightProperty());
+        /**
         mapVille.layoutXProperty().bind(new DoubleBinding() { // Pour maintenir le plateau au centre
             {
                 super.bind(widthProperty(), heightProperty());
@@ -101,6 +113,8 @@ public class VuePlateau extends Pane {
                 return mapVille.getBoundsInParent().getMinX();
             }
         });
+            */
+
     }
 
     private void construirePlateau() {
@@ -133,7 +147,7 @@ public class VuePlateau extends Pane {
                         x + "," + (y + 2 * plateau.getDepY()) + " z"
         );
         tuilePlateau.getChildren().add(hexagone);
-        hexagone.setOpacity(0);
+        //hexagone.setOpacity(0);
 
         int numJoueur = 0;
         List<? extends IJoueur> lesJoueurs = GestionJeu.getJeu().getJoueurs();
