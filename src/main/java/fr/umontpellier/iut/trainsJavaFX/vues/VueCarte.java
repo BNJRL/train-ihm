@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 
 import java.io.IOException;
@@ -17,9 +18,8 @@ import java.io.IOException;
  * <p>
  * On y définit le listener à exécuter lorsque cette carte a été choisie par l'utilisateur
  */
-public class VueCarte extends StackPane {
-
-    private final Carte carte;
+public class VueCarte extends Pane {
+    private ICarte carte;
     private Label image;
 
     public VueCarte(ICarte carte) {
@@ -39,5 +39,8 @@ public class VueCarte extends StackPane {
 
     public Label getImage() {
         return image;
+    }
+    public void setCarte(ICarte c){
+        this.carte = c;
     }
 }
