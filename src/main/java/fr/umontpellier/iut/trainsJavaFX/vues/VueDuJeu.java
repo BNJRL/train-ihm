@@ -22,6 +22,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -49,7 +50,9 @@ public class VueDuJeu extends VBox {
     @FXML
     private VueJoueurCourant joueurCourant;
     @FXML
-    private HBox basGauche;
+    private HBox zoneAction;
+    @FXML
+    private VBox bas;
     @FXML
     private HBox autresJoueurs;
     @FXML
@@ -110,13 +113,16 @@ public class VueDuJeu extends VBox {
 
 
         HBox ligneInstruction = new HBox();
-        basGauche = new HBox();
-        basGauche.getChildren().addAll(passer, joueurCourant);
+        zoneAction = new HBox();
+        zoneAction.getChildren().addAll(passer, joueurCourant);
 
         ligneInstruction.getChildren().addAll(nomJoueur, instruction);
         centre.getChildren().addAll(plateau);
 
-        getChildren().addAll(autresJoueurs, centre, ligneInstruction, basGauche);
+        bas = new VBox();
+        bas.getChildren().addAll(ligneInstruction, zoneAction);
+
+        getChildren().addAll(autresJoueurs, centre, bas);
         setMargin(centre,new Insets(120,0,0,0));
         /**
         reserve.setVgap(1);
@@ -156,6 +162,8 @@ public class VueDuJeu extends VBox {
         }
         this.getJeu().joueurCourantProperty().addListener(
                 (source, oldValue, newValue) -> {
+                    String couleurHex = CouleursJoueurs.couleursBackgroundJoueur.get(newValue.getCouleur());
+                    bas.setBackground(Background.fill(Color.web(couleurHex,0.6)));
                     nomJoueur.setText(newValue.getNom() + ": ");
                     autresJoueurs.getChildren().clear();
                     for(VueAutresJoueurs vAJ : vueAutresJoueursList){
