@@ -5,6 +5,7 @@ import fr.umontpellier.iut.trainsJavaFX.ICarte;
 import fr.umontpellier.iut.trainsJavaFX.IJeu;
 import fr.umontpellier.iut.trainsJavaFX.IJoueur;
 import fr.umontpellier.iut.trainsJavaFX.mecanique.cartes.ListeDeCartes;
+import javafx.beans.property.IntegerProperty;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -32,7 +33,18 @@ public class VueJoueurCourant extends HBox{
     private HBox listeBoutons;
     @FXML
     private IJoueur joueur;
-
+    @FXML
+    private Label nbPointsVictoire;
+    @FXML
+    private Label nbJetonsRails;
+    @FXML
+    private Label nbJetonsGare;
+    @FXML
+    private Label argent;
+    @FXML
+    private Label nbPointsRails;
+    @FXML
+    private Label nbCartesPioche;
 
     public VueJoueurCourant(IJoueur joueur) {
         try {
@@ -44,6 +56,11 @@ public class VueJoueurCourant extends HBox{
             e.printStackTrace();
         }
         this.joueur = joueur ;
+        nbCartesPioche.setText(String.valueOf(joueur.piocheProperty().getSize()));
+        nbJetonsRails.setText(String.valueOf(joueur.nbJetonsRailsProperty().get()));
+        nbPointsVictoire.setText(String.valueOf(joueur.scoreProperty().get()));
+        nbPointsRails.setText(String.valueOf(joueur.pointsRailsProperty().get()));
+        argent.setText(String.valueOf(joueur.argentProperty().get()));
     }
 
     public IJoueur getJoueur() {
@@ -68,6 +85,31 @@ public class VueJoueurCourant extends HBox{
         for(IJoueur j : GestionJeu.getJeu().getJoueurs()){
             j.mainProperty().addListener(changecartelistener);
         }
+        joueur.nbJetonsRailsProperty().addListener(
+                (source, oldValue, newValue) -> {
+                    nbJetonsRails.setText(String.valueOf(newValue));
+                }
+        );
+        joueur.argentProperty().addListener(
+                (source, oldValue, newValue) -> {
+                    argent.setText(String.valueOf(newValue));
+                }
+        );
+        joueur.piocheProperty().addListener(
+                (source, oldValue, newValue) -> {
+                    nbCartesPioche.setText(String.valueOf(newValue.size()));
+                }
+        );
+        joueur.pointsRailsProperty().addListener(
+                (source, oldValue, newValue) -> {
+                    nbPointsRails.setText(String.valueOf(newValue));
+                }
+        );
+        joueur.scoreProperty().addListener(
+                (source, oldValue, newValue) -> {
+                    nbPointsVictoire.setText(String.valueOf(newValue));
+                }
+        );
     }
 
     private final ListChangeListener<ICarte> changecartelistener = change -> {
@@ -91,4 +133,5 @@ public class VueJoueurCourant extends HBox{
 
         return null;
     }
+
 }

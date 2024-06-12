@@ -116,11 +116,14 @@ public class VueDuJeu extends VBox {
         zoneAction = new HBox();
         zoneAction.getChildren().addAll(passer, joueurCourant);
 
+
         ligneInstruction.getChildren().addAll(nomJoueur, instruction);
+        ligneInstruction.setAlignment(Pos.CENTER);
         centre.getChildren().addAll(plateau);
 
         bas = new VBox();
         bas.getChildren().addAll(ligneInstruction, zoneAction);
+        bas.setAlignment(Pos.CENTER);
 
         getChildren().addAll(autresJoueurs, centre, bas);
         setMargin(centre,new Insets(120,0,0,0));
@@ -156,7 +159,6 @@ public class VueDuJeu extends VBox {
         plateau.prefWidthProperty().bind(getScene().widthProperty());
         plateau.prefHeightProperty().bind(getScene().heightProperty());
         plateau.creerBindings();
-        joueurCourant.creerBindings();
         for(VueAutresJoueurs vAJ : vueAutresJoueursList){
             vAJ.creerBindings();
         }
@@ -186,7 +188,6 @@ public class VueDuJeu extends VBox {
                         System.out.println("La main change mdr");
                         mapVueAutreJoueur.get(j).actualiserPointsVictoires();
                     }
-
                 }
         );
         this.joueurCourant.getJoueur().cartesRecuesProperty().addListener(
