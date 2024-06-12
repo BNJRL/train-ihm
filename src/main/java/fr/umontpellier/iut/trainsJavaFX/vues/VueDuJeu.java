@@ -182,6 +182,7 @@ public class VueDuJeu extends VBox {
                     }
                 }
         );
+        reserve.creerBindings();
 
         this.joueurCourant.getJoueur().mainProperty().addListener(
                 (source, oldValue, newValue) -> {

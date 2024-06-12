@@ -1,5 +1,6 @@
 package fr.umontpellier.iut.trainsJavaFX.vues;
 
+import fr.umontpellier.iut.trainsJavaFX.GestionJeu;
 import fr.umontpellier.iut.trainsJavaFX.ICarte;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -17,6 +18,8 @@ public class VueCarteReserve extends Pane {
     private Label nbReserve;
     @FXML
     private Pane vueCarte;  // Déclarez vueCarte comme une instance de VueCarte
+    private VueCarte vueCarteVue;
+    private ICarte carte;
 
     public VueCarteReserve(ICarte carte, int n) {
         loadFXML();
@@ -27,6 +30,7 @@ public class VueCarteReserve extends Pane {
         this.setPrefHeight(this.getPrefHeight() * v);
         this.setScaleX(v);
         this.setScaleY(v);
+
     }
 
     private void loadFXML() {
@@ -45,8 +49,9 @@ public class VueCarteReserve extends Pane {
         // Vérifiez si `vueCarte` est bien initialisé après le chargement du FXML
         if (vueCarte != null) {
             // Créez et ajoutez une instance de VueCarte à vueCarte
-            VueCarte carteVue = new VueCarte(carte);
-            vueCarte.getChildren().add(carteVue);
+            this.carte = carte;
+            vueCarteVue = new VueCarte(carte);
+            vueCarte.getChildren().add(vueCarteVue);
         } else {
             System.err.println("Erreur : vueCarte n'est pas initialisé !");
         }
@@ -58,6 +63,27 @@ public class VueCarteReserve extends Pane {
             System.err.println("Erreur : nbReserve n'est pas initialisé !");
         }
 
+    }
+    public ICarte getCarte(){
+        return carte;
+    }
+
+    public void decrementerCompteur(){
+
+        if(this.nbReserve.getText().equals("0")){
+
+        } else if(this.nbReserve.getText().equals("1")){
+            this.nbReserve.setText(String.valueOf(Integer.parseInt(nbReserve.getText())-1));
+            vueCarteVue.noirEtBlanc();
+        } else{
+            this.nbReserve.setText(String.valueOf(Integer.parseInt(nbReserve.getText())-1));
+        }
+    }
+    public void incrementerCompteur(){
+        this.nbReserve.setText(String.valueOf(Integer.parseInt(nbReserve.getText())+1));
+        if(Integer.parseInt(nbReserve.getText()) > 0){
+            vueCarteVue.imageParDefaut();
+        }
     }
 
 }
