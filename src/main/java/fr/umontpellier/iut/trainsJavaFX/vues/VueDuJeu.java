@@ -132,12 +132,11 @@ public class VueDuJeu extends VBox {
 
         getChildren().addAll(autresJoueurs,centre, bas);
         setMargin(centre,new Insets(120,0,0,12));
-        centre.setMaxSize(900,1920);
+        centre.setMaxSize(0,800);
         double v = 0.4;
 
         plateau.setMaxWidth(900);
         plateau.setLayoutY(0);
-        //centre.setSpacing(1000);
 
 
 
