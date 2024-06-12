@@ -1,20 +1,27 @@
 package fr.umontpellier.iut.trainsJavaFX.vues;
 
 import javafx.scene.Node;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.RowConstraints;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class VueReserve extends FlowPane {
+public class VueReserve extends GridPane {
 
-    List<VueCarteReserve> cartes;
+    int compteur;
+    int val;
 
     public VueReserve(){
-        this.cartes = new ArrayList<>();
+        this.compteur = 0;
+        this.val = 6;
+        //setMaxWidth(400);
 
     }
     public void ajouterEnfant(VueCarteReserve vueCarte){
-        getChildren().add(vueCarte);
+        add(vueCarte, compteur%val,compteur/val);
+        compteur++;
     }
 }

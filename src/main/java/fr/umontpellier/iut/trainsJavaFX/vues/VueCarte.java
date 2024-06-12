@@ -6,6 +6,7 @@ import fr.umontpellier.iut.trainsJavaFX.mecanique.cartes.ListeDeCartes;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -25,7 +26,16 @@ public class VueCarte extends Pane {
     public VueCarte(ICarte carte) {
         this.carte = (Carte) carte;
         this.image = new Label();
-        image.setGraphic(new ImageView("images/cartes/"+convertisseurTexte(carte.getNom())+".jpg"));
+
+        ImageView imageView = new ImageView("images/cartes/"+convertisseurTexte(carte.getNom())+".jpg");
+
+/**
+        imageView.setFitHeight(120);
+        imageView.setPreserveRatio(true);
+ */
+
+        image = new Label("",imageView);
+
         getChildren().add(image);
     }
 

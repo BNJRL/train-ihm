@@ -21,6 +21,12 @@ public class VueCarteReserve extends Pane {
     public VueCarteReserve(ICarte carte, int n) {
         loadFXML();
         initialize(carte, n);  // Initialisez avec les valeurs après le chargement du FXML
+
+        double v = 0.30;
+        this.setPrefWidth(this.getPrefWidth() * v);
+        this.setPrefHeight(this.getPrefHeight() * v);
+        this.setScaleX(v);
+        this.setScaleY(v);
     }
 
     private void loadFXML() {
@@ -53,4 +59,5 @@ public class VueCarteReserve extends Pane {
         }
 
     }
+
 }

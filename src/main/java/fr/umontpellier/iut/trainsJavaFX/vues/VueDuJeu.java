@@ -103,8 +103,7 @@ public class VueDuJeu extends VBox {
         mapVueCarte = new HashMap<>();
         for(ICarte c : jeu.getReserve()){
             mapVueCarte.put(c,new VueCarteReserve(c, jeu.getTaillesPilesReserveProperties().get(c.getNom()).intValue()));
-            reserve.getChildren().add(mapVueCarte.get(c));
-            //reserve.ajouterEnfant(mapVueCarte.get(c));
+            reserve.ajouterEnfant(mapVueCarte.get(c));
         }
 
 
@@ -122,22 +121,21 @@ public class VueDuJeu extends VBox {
 
         ligneInstruction.getChildren().addAll(nomJoueur, instruction);
         ligneInstruction.setAlignment(Pos.CENTER);
-        centre.getChildren().addAll(plateau);
+        centre.getChildren().addAll(plateau,reserve);
+        //centre.maxHeight(100);
 
         bas = new VBox();
         bas.getChildren().addAll(ligneInstruction, zoneAction);
         bas.setAlignment(Pos.CENTER);
 
-        getChildren().addAll(autresJoueurs, centre, bas);
-        setMargin(centre,new Insets(120,0,0,0));
-        /**
-        reserve.setVgap(1);
-        reserve.setHgap(1);
-        /**
-        reserve.setScaleX(0.3);
-        reserve.setScaleY(0.3);
-         */
-        //setMargin(reserve, new Insets(-520, 0, 0, 0));
+        getChildren().addAll(autresJoueurs,centre, bas);
+        setMargin(centre,new Insets(120,0,0,260));
+        //centre.setMaxSize(800,1000);
+        double v = 0.4;
+
+        plateau.setMaxWidth(500);
+        centre.setSpacing(200);
+
 
         this.setSpacing(20);
 
