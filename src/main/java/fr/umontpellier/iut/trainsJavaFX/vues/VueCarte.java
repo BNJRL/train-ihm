@@ -42,7 +42,7 @@ public class VueCarte extends Pane {
         this.image = new Label();
 
         imageView = new ImageView("images/cartes/"+convertisseurTexte(carte.getNom())+".jpg");
-        imageView.setFitHeight(parents.getHeight());
+
         image = new Label("",imageView);
         getChildren().add(image);
     }
@@ -57,6 +57,7 @@ public class VueCarte extends Pane {
                     double nouvelTaille = newScene.getWidth() - spacing * (nbImage - 1) + padding;
                     return nouvelTaille / nbImage;
                 }, newScene.widthProperty()));
+                imageView.fitHeightProperty().bind(imageView.fitWidthProperty().multiply(1.5));
             }
         });
     }

@@ -33,6 +33,8 @@ public class VueJoueurCourant extends HBox{
     @FXML
     private HBox listeVuesCarte;
     @FXML
+    private HBox cartesEnJeu;
+    @FXML
     private IJoueur joueur;
     @FXML
     private Label nbPointsVictoire;
@@ -86,6 +88,8 @@ public class VueJoueurCourant extends HBox{
         );
 
 
+
+
         for(IJoueur j : GestionJeu.getJeu().getJoueurs()){
             j.mainProperty().addListener(changecartelistener);
         }
@@ -121,6 +125,16 @@ public class VueJoueurCourant extends HBox{
             if (change.wasRemoved()) {
                 for (ICarte c : change.getRemoved()) {
                     listeVuesCarte.getChildren().remove(trouverVueCarte(c));
+                }
+            }else if(change.wasAdded()){
+                for (ICarte c : change.getAddedSubList()) {
+                    VueCarte carte = new VueCarte(c, listeVuesCarte);
+                    carte.creerBindingsCartesReserves(listeVuesCarte);
+                    listeVuesCarte.getChildren().add(carte);
+
+                    carte.setCarteChoisieListener(event -> {
+                        GestionJeu.getJeu().joueurCourantProperty().getValue().uneCarteDeLaMainAEteChoisie(c.getNom());
+                    });
                 }
             }
         }

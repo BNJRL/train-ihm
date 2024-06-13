@@ -8,7 +8,7 @@
 
 <fx:root alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="500.0" prefWidth="1500.0" type="HBox" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <HBox fx:id="listeVuesCarte" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" prefHeight="500.0" prefWidth="904.0" spacing="2.0" />
+      <HBox fx:id="listeVuesCarte" alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="500.0" prefWidth="904.0" spacing="2.0" />
       <VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="500.0" prefWidth="277.0">
          <children>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
@@ -58,7 +58,7 @@
                                           <Image url="@../images/icons/coins.png" />
                                        </image>
                                     </ImageView>
-                                    <Label fx:id="argent"  />
+                                    <Label fx:id="argent" />
                                  </children>
                               </HBox>
                               <HBox alignment="CENTER">
@@ -68,7 +68,7 @@
                                           <Image url="@../images/boutons/rails.png" />
                                        </image>
                                     </ImageView>
-                                    <Label fx:id="nbPointsRails"  />
+                                    <Label fx:id="nbPointsRails" />
                                  </children>
                               </HBox>
                               <HBox alignment="CENTER">
@@ -87,7 +87,7 @@
                   </VBox>
                </children>
             </HBox>
-            <HBox prefHeight="100.0" prefWidth="352.0" />
+            <HBox id="cartesEnJeu" prefHeight="100.0" prefWidth="352.0" />
          </children>
       </VBox>
    </children>
