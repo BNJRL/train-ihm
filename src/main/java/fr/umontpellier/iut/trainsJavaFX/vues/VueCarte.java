@@ -3,6 +3,7 @@ package fr.umontpellier.iut.trainsJavaFX.vues;
 import fr.umontpellier.iut.trainsJavaFX.ICarte;
 import fr.umontpellier.iut.trainsJavaFX.mecanique.cartes.Carte;
 import fr.umontpellier.iut.trainsJavaFX.mecanique.cartes.ListeDeCartes;
+import javafx.beans.binding.Bindings;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
@@ -10,6 +11,7 @@ import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 
@@ -23,15 +25,40 @@ import java.io.IOException;
 public class VueCarte extends Pane {
     private ICarte carte;
     private Label image;
+    private ImageView imageView;
 
     public VueCarte(ICarte carte) {
         this.carte = (Carte) carte;
         this.image = new Label();
 
-        ImageView imageView = new ImageView("images/cartes/"+convertisseurTexte(carte.getNom())+".jpg");
+        imageView = new ImageView("images/cartes/"+convertisseurTexte(carte.getNom())+".jpg");
         image = new Label("",imageView);
-
         getChildren().add(image);
+
+    }
+
+    public VueCarte(ICarte carte, HBox parents) {
+        this.carte = (Carte) carte;
+        this.image = new Label();
+
+        imageView = new ImageView("images/cartes/"+convertisseurTexte(carte.getNom())+".jpg");
+        imageView.setFitHeight(parents.getHeight());
+        image = new Label("",imageView);
+        getChildren().add(image);
+    }
+
+    public void creerBindingsCartesReserves(HBox parents) {
+        sceneProperty().addListener((observable, oldScene, newScene) -> {
+            if (newScene != null) {
+                imageView.fitWidthProperty().bind(Bindings.createDoubleBinding(() -> {
+                    double spacing = parents.getSpacing();
+                    double padding = parents.getPadding().getLeft() + parents.getPadding().getRight();
+                    int nbImage = 16;
+                    double nouvelTaille = newScene.getWidth() - spacing * (nbImage - 1) + padding;
+                    return nouvelTaille / nbImage;
+                }, newScene.widthProperty()));
+            }
+        });
     }
 
     public void setCarteChoisieListener(EventHandler<MouseEvent> quandCarteEstChoisie) {

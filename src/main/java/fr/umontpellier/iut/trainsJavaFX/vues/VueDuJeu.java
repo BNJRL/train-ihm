@@ -79,6 +79,7 @@ public class VueDuJeu extends VBox {
         reserve = new VueReserve();
         passer = new Button("Passer");
         passer.setPrefSize(100, 500);
+        passer.setMinWidth(50);
         nomJoueur = new Label();
         instruction = new Label();
         nomJoueur.setFont(Font.font("Arial", FontWeight.BOLD, 20));
@@ -108,14 +109,10 @@ public class VueDuJeu extends VBox {
             reserve.ajouterEnfant(mapVueCarte.get(c));
         }
 
-
-
         autresJoueurs.setSpacing((double) 900 /vueAutresJoueursList.size());
         autresJoueurs.setAlignment(Pos.CENTER);
 
         centre = new HBox();
-
-
         HBox ligneInstruction = new HBox();
         zoneAction = new HBox();
         zoneAction.getChildren().addAll(passer, joueurCourant);
@@ -212,6 +209,18 @@ public class VueDuJeu extends VBox {
         );
         centre.spacingProperty().bind((this).heightProperty());
         reserve.prefHeightProperty().bind(plateau.prefHeightProperty());
+
+        this.heightProperty().addListener(
+                (source, oldValue, newValue) -> {
+                    autresJoueurs.setPrefHeight((Double) newValue/9);
+                    centre.setPrefHeight(((Double) newValue/9)*5);
+                    bas.setPrefHeight(((Double) newValue/9)*3);
+                    zoneAction.setPrefHeight((bas.getHeight()/10)*9);
+                    passer.setPrefHeight(zoneAction.getHeight());
+                    joueurCourant.setPrefHeight(zoneAction.getHeight());
+                }
+        );
+
     }
 
     public IJeu getJeu() {

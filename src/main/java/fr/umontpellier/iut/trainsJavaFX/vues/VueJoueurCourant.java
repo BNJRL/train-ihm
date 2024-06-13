@@ -5,6 +5,7 @@ import fr.umontpellier.iut.trainsJavaFX.ICarte;
 import fr.umontpellier.iut.trainsJavaFX.IJeu;
 import fr.umontpellier.iut.trainsJavaFX.IJoueur;
 import fr.umontpellier.iut.trainsJavaFX.mecanique.cartes.ListeDeCartes;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.IntegerProperty;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
@@ -30,7 +31,7 @@ import java.io.IOException;
 public class VueJoueurCourant extends HBox{
 
     @FXML
-    private HBox listeBoutons;
+    private HBox listeVuesCarte;
     @FXML
     private IJoueur joueur;
     @FXML
@@ -70,18 +71,21 @@ public class VueJoueurCourant extends HBox{
     public void creerBindings(){
         GestionJeu.getJeu().joueurCourantProperty().addListener(
                 (source, oldValue, newValue) -> {
-                    listeBoutons.getChildren().clear();
+                    listeVuesCarte.getChildren().clear();
                     ListeDeCartes l = newValue.mainProperty();
                     for (ICarte c : l) {
-                        Button but = new Button(c.getNom());
-                        listeBoutons.getChildren().add(but);
+                        VueCarte carte = new VueCarte(c, listeVuesCarte);
+                        carte.creerBindingsCartesReserves(listeVuesCarte);
+                        listeVuesCarte.getChildren().add(carte);
 
-                        but.setOnAction(event -> {
+                        carte.setCarteChoisieListener(event -> {
                             newValue.uneCarteDeLaMainAEteChoisie(c.getNom());
                         });
                     }
                 }
         );
+
+
         for(IJoueur j : GestionJeu.getJeu().getJoueurs()){
             j.mainProperty().addListener(changecartelistener);
         }
@@ -116,18 +120,18 @@ public class VueJoueurCourant extends HBox{
         while (change.next()) {
             if (change.wasRemoved()) {
                 for (ICarte c : change.getRemoved()) {
-                    listeBoutons.getChildren().remove(trouverBoutonCarte(c));
+                    listeVuesCarte.getChildren().remove(trouverVueCarte(c));
                 }
             }
         }
     };
 
 
-    private Button trouverBoutonCarte(ICarte carteATrouver){
-        for(Node but : listeBoutons.getChildren()){
-            Button bout = (Button) but;
-            if(carteATrouver.getNom().equals(bout.getText())){
-                return bout;
+    private VueCarte trouverVueCarte(ICarte carteATrouver){
+        for(Node node : listeVuesCarte.getChildren()){
+            VueCarte vue = (VueCarte) node;
+            if(carteATrouver.getNom().equals(vue.getCarte().getNom())){
+                return vue;
             }
         }
 
