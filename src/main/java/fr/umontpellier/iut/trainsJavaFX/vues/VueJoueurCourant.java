@@ -22,6 +22,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 /**
  * Cette classe présente les éléments appartenant au joueur courant.
@@ -66,6 +68,10 @@ public class VueJoueurCourant extends HBox{
         argent.setText(String.valueOf(joueur.argentProperty().get()));
     }
 
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        creerBindings();
+    }
+
     public IJoueur getJoueur() {
         return joueur;
     }
@@ -76,7 +82,7 @@ public class VueJoueurCourant extends HBox{
                     listeVuesCarte.getChildren().clear();
                     ListeDeCartes l = newValue.mainProperty();
                     for (ICarte c : l) {
-                        VueCarte carte = new VueCarte(c, listeVuesCarte);
+                        VueCarte carte = new VueCarte(c);
                         carte.creerBindingsCartesReserves(listeVuesCarte);
                         listeVuesCarte.getChildren().add(carte);
 
@@ -84,40 +90,33 @@ public class VueJoueurCourant extends HBox{
                             newValue.uneCarteDeLaMainAEteChoisie(c.getNom());
                         });
                     }
+                    argent.textProperty().bind(newValue.argentProperty().asString());
+                    nbPointsVictoire.textProperty().bind(newValue.scoreProperty().asString());
+                    nbPointsRails.textProperty().bind(newValue.pointsRailsProperty().asString());
+                    nbJetonsRails.textProperty().bind(newValue.nbJetonsRailsProperty().asString());
+                    nbCartesPioche.textProperty().bind(newValue.piocheProperty().sizeProperty().asString());
                 }
         );
 
+        joueur.cartesEnJeuProperty().addListener(
+                (source, oldValue, newValue) -> {
+                    cartesEnJeu.getChildren().clear();
+                    for (ICarte c : newValue) {
+                        VueCarte carte = new VueCarte(c);
+                        carte.creerBindingsCartesReserves(cartesEnJeu);
+                        cartesEnJeu.getChildren().add(carte);
 
-
+                        carte.setCarteChoisieListener(event -> {
+                            joueur.uneCarteEnJeuAEteChoisie(c.getNom());
+                        });
+                    }
+                }
+        );
 
         for(IJoueur j : GestionJeu.getJeu().getJoueurs()){
             j.mainProperty().addListener(changecartelistener);
         }
-        joueur.nbJetonsRailsProperty().addListener(
-                (source, oldValue, newValue) -> {
-                    nbJetonsRails.setText(String.valueOf(newValue));
-                }
-        );
-        joueur.argentProperty().addListener(
-                (source, oldValue, newValue) -> {
-                    argent.setText(String.valueOf(newValue));
-                }
-        );
-        joueur.piocheProperty().addListener(
-                (source, oldValue, newValue) -> {
-                    nbCartesPioche.setText(String.valueOf(newValue.size()));
-                }
-        );
-        joueur.pointsRailsProperty().addListener(
-                (source, oldValue, newValue) -> {
-                    nbPointsRails.setText(String.valueOf(newValue));
-                }
-        );
-        joueur.scoreProperty().addListener(
-                (source, oldValue, newValue) -> {
-                    nbPointsVictoire.setText(String.valueOf(newValue));
-                }
-        );
+
     }
 
     private final ListChangeListener<ICarte> changecartelistener = change -> {
@@ -128,7 +127,7 @@ public class VueJoueurCourant extends HBox{
                 }
             }else if(change.wasAdded()){
                 for (ICarte c : change.getAddedSubList()) {
-                    VueCarte carte = new VueCarte(c, listeVuesCarte);
+                    VueCarte carte = new VueCarte(c);
                     carte.creerBindingsCartesReserves(listeVuesCarte);
                     listeVuesCarte.getChildren().add(carte);
 

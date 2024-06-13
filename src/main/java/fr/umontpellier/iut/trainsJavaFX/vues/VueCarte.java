@@ -37,16 +37,6 @@ public class VueCarte extends Pane {
 
     }
 
-    public VueCarte(ICarte carte, HBox parents) {
-        this.carte = (Carte) carte;
-        this.image = new Label();
-
-        imageView = new ImageView("images/cartes/"+convertisseurTexte(carte.getNom())+".jpg");
-
-        image = new Label("",imageView);
-        getChildren().add(image);
-    }
-
     public void creerBindingsCartesReserves(HBox parents) {
         sceneProperty().addListener((observable, oldScene, newScene) -> {
             if (newScene != null) {
@@ -57,7 +47,7 @@ public class VueCarte extends Pane {
                     double nouvelTaille = newScene.getWidth() - spacing * (nbImage - 1) + padding;
                     return nouvelTaille / nbImage;
                 }, newScene.widthProperty()));
-                imageView.fitHeightProperty().bind(imageView.fitWidthProperty().multiply(1.5));
+                imageView.fitHeightProperty().bind(imageView.fitWidthProperty().multiply(1.4));
             }
         });
     }
