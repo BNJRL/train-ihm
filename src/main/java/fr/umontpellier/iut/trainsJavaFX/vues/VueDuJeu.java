@@ -1,5 +1,6 @@
 package fr.umontpellier.iut.trainsJavaFX.vues;
 
+import fr.umontpellier.iut.trainsJavaFX.GestionJeu;
 import fr.umontpellier.iut.trainsJavaFX.ICarte;
 import fr.umontpellier.iut.trainsJavaFX.IJeu;
 import fr.umontpellier.iut.trainsJavaFX.IJoueur;
@@ -44,25 +45,34 @@ import java.util.Map;
 public class VueDuJeu extends VBox {
 
     @FXML
-    private final IJeu jeu;
-    @FXML
-    private VuePlateau plateau;
-    @FXML
-    private VueJoueurCourant joueurCourant;
-    @FXML
-    private HBox zoneAction;
+    private HBox autresJoueurs;
     @FXML
     private VBox bas;
     @FXML
-    private HBox autresJoueurs;
-    @FXML
-    private VueReserve reserve;
+    private FlowPane choix;
     @FXML
     private Label instruction;
     @FXML
-    private Button passer;
+    private final IJeu jeu;
+    @FXML
+    private VueJoueurCourant joueurCourant;
     @FXML
     private Label nomJoueur;
+    @FXML
+    private Button passer;
+    @FXML
+    private VuePlateau plateau;
+    @FXML
+    private VueReserve reserve;
+    @FXML
+    private HBox zoneAction;
+
+
+
+
+
+
+
 
     private HBox centre;
 
@@ -85,13 +95,13 @@ public class VueDuJeu extends VBox {
         instruction.setFont(Font.font("Arial", FontWeight.BOLD, 20));
         autresJoueurs = new HBox();
         joueurCourant = new VueJoueurCourant(jeu.joueurCourantProperty().get());
+        choix = new FlowPane();
 
         vueAutresJoueursList = new ArrayList<>();
         mapVueAutreJoueur = new HashMap<>();
         for(IJoueur j : jeu.getJoueurs()){
             mapVueAutreJoueur.put(j, new VueAutresJoueurs(j));
             vueAutresJoueursList.add(mapVueAutreJoueur.get(j));
-
         }
 
         mapVueCarte = new HashMap<>();
@@ -109,7 +119,7 @@ public class VueDuJeu extends VBox {
         zoneAction.getChildren().addAll(passer, joueurCourant);
 
 
-        ligneInstruction.getChildren().addAll(nomJoueur, instruction);
+        ligneInstruction.getChildren().addAll(nomJoueur, instruction, choix);
         ligneInstruction.setAlignment(Pos.CENTER);
         centre.getChildren().addAll(plateau,reserve);
         //centre.maxHeight(100);
@@ -207,6 +217,8 @@ public class VueDuJeu extends VBox {
         );
 
     }
+
+
 
     public IJeu getJeu() {
         return jeu;

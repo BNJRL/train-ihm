@@ -94,7 +94,7 @@ public class TrainsIHM extends Application {
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
         Platform.exit();
-       }
+        }
     }
 
     public Jeu getJeu() {
