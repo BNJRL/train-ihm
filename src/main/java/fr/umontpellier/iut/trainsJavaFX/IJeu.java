@@ -19,6 +19,7 @@ public interface IJeu {
     List<? extends IJoueur> getJoueurs();
     List<Tuile> getTuiles();
     ListeDeCartes getReserve();
+    IntegerProperty gareProperty();
 
     Plateau getPlateau();
     String getNomVille();

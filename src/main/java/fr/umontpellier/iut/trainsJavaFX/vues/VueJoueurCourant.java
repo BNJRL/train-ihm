@@ -49,6 +49,8 @@ public class VueJoueurCourant extends HBox{
     private Label nbPointsRails;
     @FXML
     private Label nbCartesPioche;
+    @FXML
+    private Label nbCartesDefausse;
 
     public VueJoueurCourant(IJoueur joueur) {
         try {
@@ -90,6 +92,8 @@ public class VueJoueurCourant extends HBox{
                     nbPointsRails.textProperty().bind(newValue.pointsRailsProperty().asString());
                     nbJetonsRails.textProperty().bind(newValue.nbJetonsRailsProperty().asString());
                     nbCartesPioche.textProperty().bind(newValue.piocheProperty().sizeProperty().asString());
+                    nbCartesDefausse.textProperty().bind(newValue.defausseProperty().sizeProperty().asString());
+                    nbJetonsGare.textProperty().bind(GestionJeu.getJeu().gareProperty().asString());
                 }
         );
 

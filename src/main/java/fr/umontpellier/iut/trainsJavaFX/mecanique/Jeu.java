@@ -46,7 +46,7 @@ public class Jeu implements IJeu {
     /**
      * Nombre de jetons Gare restant (non placés sur les tuiles)
      */
-    private int nbJetonsGare;
+    private IntegerProperty nbJetonsGare;
 
     /**
      * Instruction affichée au joueur courant
@@ -79,7 +79,7 @@ public class Jeu implements IJeu {
         this.nomVille = plateau.getNomVille();
         this.tuiles = plateau.makeTuiles();
 
-        this.nbJetonsGare = 30;
+        this.nbJetonsGare = new SimpleIntegerProperty(30);
         this.cartesEcartees = new ListeDeCartes();
 
         // construction des piles de réserve
@@ -126,7 +126,7 @@ public class Jeu implements IJeu {
     }
 
     public int getNbJetonsGare() {
-        return nbJetonsGare;
+        return nbJetonsGare.getValue();
     }
 
     /**
@@ -221,7 +221,7 @@ public class Jeu implements IJeu {
             }
         }
         // condition 3: tous les jetons Gare ont été placés sur le plateau
-        if (nbJetonsGare == 0) {
+        if (nbJetonsGare.getValue() == 0) {
             finDePartie.setValue(true);
         }
     }
@@ -266,7 +266,7 @@ public class Jeu implements IJeu {
 
     public List<String> getPositionsGareDisponibles() {
         List<String> positions = new ArrayList<>();
-        if (nbJetonsGare <= 0) {
+        if (nbJetonsGare.getValue() <= 0) {
             // plus aucun jeton Gare disponible
             return positions;
         }
@@ -281,7 +281,7 @@ public class Jeu implements IJeu {
 
     public void ajouterGare(int i) {
         tuiles.get(i).ajouterGare();
-        nbJetonsGare--;
+        nbJetonsGare.setValue(nbJetonsGare.getValue() - 1);
     }
 
     public Collection<String> getPositionsRailDisponibles(Joueur joueur) {
@@ -328,6 +328,11 @@ public class Jeu implements IJeu {
     @Override
     public BooleanProperty finDePartieProperty() {
         return finDePartie;
+    }
+
+    @Override
+    public IntegerProperty gareProperty() {
+        return nbJetonsGare;
     }
 
     @Override

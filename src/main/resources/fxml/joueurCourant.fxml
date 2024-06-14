@@ -29,11 +29,11 @@
       </VBox>
       <VBox alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="500.0" prefWidth="750.0">
          <children>
-            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0" style="-fx-border-width: 1; -fx-border-style: solid; -fx-border-color:black;">
+            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="100.0" spacing="10.0" style="-fx-border-width: 1; -fx-border-style: solid; -fx-border-color:black;">
                <children>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="100.0">
                      <children>
-                        <ImageView fitHeight="19.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/icons/star.png" />
                            </image>
@@ -43,7 +43,7 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="100.0">
                      <children>
-                        <ImageView fitHeight="21.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/boutons/rails.png" />
                            </image>
@@ -53,7 +53,7 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="100.0">
                      <children>
-                        <ImageView fitHeight="20.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/icons/gare.png" />
                            </image>
@@ -61,19 +61,19 @@
                         <Label fx:id="nbJetonsGare" prefWidth="50.0" />
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="100.0">
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="100.0" spacing="2.0">
                      <children>
-                        <ImageView fitHeight="53.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/icons/pioche.png" />
+                              <Image url="@../images/icons/coins.png" />
                            </image>
                         </ImageView>
-                        <Label fx:id="nbCartesPioche" prefWidth="50.0" />
+                        <Label fx:id="argent" prefWidth="50.0" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="100.0">
                      <children>
-                        <ImageView fitHeight="22.0" fitWidth="68.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/boutons/rail.png" />
                            </image>
@@ -81,14 +81,24 @@
                         <Label fx:id="nbPointsRails" prefWidth="50.0" />
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="100.0" spacing="2.0">
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="100.0">
                      <children>
-                        <ImageView fitHeight="19.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/icons/coins.png" />
+                              <Image url="@../images/icons/pioche.png" />
                            </image>
                         </ImageView>
-                        <Label fx:id="argent" prefWidth="50.0" />
+                        <Label fx:id="nbCartesPioche" prefWidth="50.0" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="100.0">
+                     <children>
+                        <ImageView fitHeight="30.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/icons/cards.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="nbCartesDefausse" prefWidth="50.0" />
                      </children>
                   </HBox>
                </children>
