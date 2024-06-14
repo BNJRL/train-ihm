@@ -13,10 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -33,9 +30,9 @@ import java.util.ResourceBundle;
 public class VueJoueurCourant extends HBox{
 
     @FXML
-    private HBox listeVuesCarte;
+    private FlowPane cartesEnMain;
     @FXML
-    private HBox cartesEnJeu;
+    private FlowPane cartesEnJeu;
     @FXML
     private IJoueur joueur;
     @FXML
@@ -61,11 +58,7 @@ public class VueJoueurCourant extends HBox{
             e.printStackTrace();
         }
         this.joueur = joueur ;
-        nbCartesPioche.setText(String.valueOf(joueur.piocheProperty().getSize()));
-        nbJetonsRails.setText(String.valueOf(joueur.nbJetonsRailsProperty().get()));
-        nbPointsVictoire.setText(String.valueOf(joueur.scoreProperty().get()));
-        nbPointsRails.setText(String.valueOf(joueur.pointsRailsProperty().get()));
-        argent.setText(String.valueOf(joueur.argentProperty().get()));
+
     }
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -79,12 +72,12 @@ public class VueJoueurCourant extends HBox{
     public void creerBindings(){
         GestionJeu.getJeu().joueurCourantProperty().addListener(
                 (source, oldValue, newValue) -> {
-                    listeVuesCarte.getChildren().clear();
+                    cartesEnMain.getChildren().clear();
                     ListeDeCartes l = newValue.mainProperty();
                     for (ICarte c : l) {
                         VueCarte carte = new VueCarte(c);
-                        carte.creerBindingsCartesReserves(listeVuesCarte);
-                        listeVuesCarte.getChildren().add(carte);
+                        carte.creerBindingsCartesReserves(cartesEnMain);
+                        cartesEnMain.getChildren().add(carte);
 
                         carte.setCarteChoisieListener(event -> {
                             newValue.uneCarteDeLaMainAEteChoisie(c.getNom());
@@ -98,23 +91,9 @@ public class VueJoueurCourant extends HBox{
                 }
         );
 
-        joueur.cartesEnJeuProperty().addListener(
-                (source, oldValue, newValue) -> {
-                    cartesEnJeu.getChildren().clear();
-                    for (ICarte c : newValue) {
-                        VueCarte carte = new VueCarte(c);
-                        carte.creerBindingsCartesReserves(cartesEnJeu);
-                        cartesEnJeu.getChildren().add(carte);
-
-                        carte.setCarteChoisieListener(event -> {
-                            joueur.uneCarteEnJeuAEteChoisie(c.getNom());
-                        });
-                    }
-                }
-        );
-
         for(IJoueur j : GestionJeu.getJeu().getJoueurs()){
             j.mainProperty().addListener(changecartelistener);
+            j.cartesEnJeuProperty().addListener(jouecartelistener);
         }
 
     }
@@ -123,13 +102,13 @@ public class VueJoueurCourant extends HBox{
         while (change.next()) {
             if (change.wasRemoved()) {
                 for (ICarte c : change.getRemoved()) {
-                    listeVuesCarte.getChildren().remove(trouverVueCarte(c));
+                    cartesEnMain.getChildren().remove(trouverVueCarte(c, cartesEnMain));
                 }
             }else if(change.wasAdded()){
                 for (ICarte c : change.getAddedSubList()) {
                     VueCarte carte = new VueCarte(c);
-                    carte.creerBindingsCartesReserves(listeVuesCarte);
-                    listeVuesCarte.getChildren().add(carte);
+                    carte.creerBindingsCartesReserves(cartesEnMain);
+                    cartesEnMain.getChildren().add(carte);
 
                     carte.setCarteChoisieListener(event -> {
                         GestionJeu.getJeu().joueurCourantProperty().getValue().uneCarteDeLaMainAEteChoisie(c.getNom());
@@ -139,9 +118,31 @@ public class VueJoueurCourant extends HBox{
         }
     };
 
+    private final ListChangeListener<ICarte> jouecartelistener = change -> {
+        while (change.next()) {
+            if (change.wasRemoved()) {
+                for (ICarte c : change.getRemoved()) {
+                    cartesEnJeu.getChildren().remove(trouverVueCarte(c, cartesEnJeu));
+                }
+            }else if(change.wasAdded()){
+                for (ICarte c : change.getAddedSubList()) {
+                    VueCarte carte = new VueCarte(c);
+                    carte.creerBindingsCartesReserves(cartesEnJeu);
+                    cartesEnJeu.getChildren().add(carte);
 
-    private VueCarte trouverVueCarte(ICarte carteATrouver){
-        for(Node node : listeVuesCarte.getChildren()){
+                    carte.setCarteChoisieListener(event -> {
+                        GestionJeu.getJeu().joueurCourantProperty().getValue().uneCarteEnJeuAEteChoisie(c.getNom());
+                    });
+                }
+            }
+        }
+    };
+
+
+
+
+    private VueCarte trouverVueCarte(ICarte carteATrouver, FlowPane listeCarte){
+        for(Node node : listeCarte.getChildren()){
             VueCarte vue = (VueCarte) node;
             if(carteATrouver.getNom().equals(vue.getCarte().getNom())){
                 return vue;

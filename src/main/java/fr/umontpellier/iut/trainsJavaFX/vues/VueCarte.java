@@ -11,6 +11,7 @@ import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -37,14 +38,13 @@ public class VueCarte extends Pane {
 
     }
 
-    public void creerBindingsCartesReserves(HBox parents) {
+    public void creerBindingsCartesReserves(FlowPane parents) {
         sceneProperty().addListener((observable, oldScene, newScene) -> {
             if (newScene != null) {
                 imageView.fitWidthProperty().bind(Bindings.createDoubleBinding(() -> {
-                    double spacing = parents.getSpacing();
                     double padding = parents.getPadding().getLeft() + parents.getPadding().getRight();
                     int nbImage = 16;
-                    double nouvelTaille = newScene.getWidth() - spacing * (nbImage - 1) + padding;
+                    double nouvelTaille = newScene.getWidth();
                     return nouvelTaille / nbImage;
                 }, newScene.widthProperty()));
                 imageView.fitHeightProperty().bind(imageView.fitWidthProperty().multiply(1.4));

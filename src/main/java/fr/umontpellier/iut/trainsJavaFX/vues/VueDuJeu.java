@@ -66,7 +66,6 @@ public class VueDuJeu extends VBox {
 
     private HBox centre;
 
-    private List<VueJoueurCourant> vueJoueursCourantList;
     private List<VueAutresJoueurs> vueAutresJoueursList;
 
     private Map<IJoueur, VueAutresJoueurs> mapVueAutreJoueur;
@@ -85,15 +84,7 @@ public class VueDuJeu extends VBox {
         nomJoueur.setFont(Font.font("Arial", FontWeight.BOLD, 20));
         instruction.setFont(Font.font("Arial", FontWeight.BOLD, 20));
         autresJoueurs = new HBox();
-
-        vueJoueursCourantList = new ArrayList<>();
-        for(IJoueur j : jeu.getJoueurs()){
-            VueJoueurCourant temp = new VueJoueurCourant(j);
-            vueJoueursCourantList.add(temp);
-            if(jeu.joueurCourantProperty().get() == j){
-                joueurCourant = temp;
-            }
-        }
+        joueurCourant = new VueJoueurCourant(jeu.joueurCourantProperty().get());
 
         vueAutresJoueursList = new ArrayList<>();
         mapVueAutreJoueur = new HashMap<>();
@@ -171,12 +162,6 @@ public class VueDuJeu extends VBox {
                     for(VueAutresJoueurs vAJ : vueAutresJoueursList){
                         if(!newValue.equals(vAJ.getJoueur())){
                             autresJoueurs.getChildren().add(vAJ);
-                        }else{
-                            for(VueJoueurCourant vJo : vueJoueursCourantList){
-                                if(vJo.getJoueur().equals(vAJ.getJoueur())){
-                                    joueurCourant = vJo;
-                                }
-                            }
                         }
                     }
                 }
