@@ -38,14 +38,14 @@ public class VueCarte extends Pane {
 
     }
 
-    public void creerBindingsCartesReserves(FlowPane parents) {
+    public void creerBindingsCartes(FlowPane parents, int rang) {
         sceneProperty().addListener((observable, oldScene, newScene) -> {
             if (newScene != null) {
                 imageView.fitWidthProperty().bind(Bindings.createDoubleBinding(() -> {
                     double padding = parents.getPadding().getLeft() + parents.getPadding().getRight();
                     int nbImage = 16;
                     double nouvelTaille = newScene.getWidth();
-                    return nouvelTaille / nbImage;
+                    return (nouvelTaille / nbImage) / rang;
                 }, newScene.widthProperty()));
                 imageView.fitHeightProperty().bind(imageView.fitWidthProperty().multiply(1.4));
             }
