@@ -1,7 +1,8 @@
-package fr.umontpellier.iut.trainsJavaFX.vues;
+package fr.umontpellier.iut.trainsJavaFX.vues.vuesJoueurs;
 
 import fr.umontpellier.iut.trainsJavaFX.IJoueur;
 import fr.umontpellier.iut.trainsJavaFX.mecanique.CouleurJoueur;
+import fr.umontpellier.iut.trainsJavaFX.vues.CouleursJoueurs;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;

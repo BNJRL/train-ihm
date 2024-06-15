@@ -1,4 +1,4 @@
-package fr.umontpellier.iut.trainsJavaFX.vues;
+package fr.umontpellier.iut.trainsJavaFX.vues.vuesCartes;
 
 import fr.umontpellier.iut.trainsJavaFX.GestionJeu;
 import fr.umontpellier.iut.trainsJavaFX.ICarte;

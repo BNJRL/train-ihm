@@ -1,22 +1,16 @@
-package fr.umontpellier.iut.trainsJavaFX.vues;
+package fr.umontpellier.iut.trainsJavaFX.vues.vuesJoueurs;
 
 import fr.umontpellier.iut.trainsJavaFX.GestionJeu;
 import fr.umontpellier.iut.trainsJavaFX.ICarte;
-import fr.umontpellier.iut.trainsJavaFX.IJeu;
 import fr.umontpellier.iut.trainsJavaFX.IJoueur;
 import fr.umontpellier.iut.trainsJavaFX.mecanique.cartes.ListeDeCartes;
-import javafx.beans.binding.Bindings;
-import javafx.beans.property.IntegerProperty;
+import fr.umontpellier.iut.trainsJavaFX.vues.vuesCartes.VueCarte;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Paint;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 
 import java.io.IOException;
 import java.net.URL;
@@ -52,7 +46,7 @@ public class VueJoueurCourant extends HBox{
     @FXML
     private Label nbCartesDefausse;
 
-    public VueJoueurCourant(IJoueur joueur) {
+    public VueJoueurCourant() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/joueurCourant.fxml"));
             loader.setRoot(this);
@@ -61,7 +55,7 @@ public class VueJoueurCourant extends HBox{
         } catch (IOException e) {
             e.printStackTrace();
         }
-        this.joueur = joueur ;
+        this.joueur = GestionJeu.getJeu().joueurCourantProperty().get() ;
 
     }
 
