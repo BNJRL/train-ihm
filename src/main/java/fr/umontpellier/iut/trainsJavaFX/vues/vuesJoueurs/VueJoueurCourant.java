@@ -4,12 +4,14 @@ import fr.umontpellier.iut.trainsJavaFX.GestionJeu;
 import fr.umontpellier.iut.trainsJavaFX.ICarte;
 import fr.umontpellier.iut.trainsJavaFX.IJoueur;
 import fr.umontpellier.iut.trainsJavaFX.mecanique.cartes.ListeDeCartes;
+import fr.umontpellier.iut.trainsJavaFX.vues.VueDuJeu;
 import fr.umontpellier.iut.trainsJavaFX.vues.vuesCartes.VueCarte;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 
 import java.io.IOException;
@@ -38,13 +40,20 @@ public class VueJoueurCourant extends HBox{
     @FXML
     private Label nbJetonsGare;
     @FXML
-    private Label argent;
+    private Label nbArgent;
     @FXML
     private Label nbPointsRails;
     @FXML
     private Label nbCartesPioche;
     @FXML
     private Label nbCartesDefausse;
+    @FXML
+    private ImageView pioche;
+    @FXML
+    private ImageView argent;
+    @FXML
+    private ImageView defausse;
+    
 
     public VueJoueurCourant() {
         try {
@@ -83,20 +92,34 @@ public class VueJoueurCourant extends HBox{
                             newValue.uneCarteDeLaMainAEteChoisie(c.getNom());
                         });
                     }
-                    argent.textProperty().bind(newValue.argentProperty().asString());
+                    nbArgent.textProperty().bind(newValue.argentProperty().asString());
                     nbPointsVictoire.textProperty().bind(newValue.scoreProperty().asString());
                     nbPointsRails.textProperty().bind(newValue.pointsRailsProperty().asString());
                     nbJetonsRails.textProperty().bind(newValue.nbJetonsRailsProperty().asString());
                     nbCartesPioche.textProperty().bind(newValue.piocheProperty().sizeProperty().asString());
                     nbCartesDefausse.textProperty().bind(newValue.defausseProperty().sizeProperty().asString());
                     nbJetonsGare.textProperty().bind(GestionJeu.getJeu().gareProperty().asString());
+
                 }
         );
 
-        for(IJoueur j : GestionJeu.getJeu().getJoueurs()){
+        for(IJoueur j : GestionJeu.getJeu().getJoueurs()) {
             j.mainProperty().addListener(changecartelistener);
             j.cartesEnJeuProperty().addListener(jouecartelistener);
             j.cartesRecuesProperty().addListener(recoitcartelistener);
+            argent.setOnMouseClicked(event -> {
+                System.out.println("argent");
+                j.recevoirArgentAEteChoisi();
+            });
+            pioche.setOnMouseClicked(event -> {
+                System.out.println("pioche");
+                j.laPiocheAEteChoisie();
+            });
+            defausse.setOnMouseClicked(event ->{
+                System.out.println("defausse");
+                j.laDefausseAEteChoisie();
+            });
+
         }
 
     }

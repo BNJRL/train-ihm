@@ -1,18 +1,23 @@
 package fr.umontpellier.iut.trainsJavaFX.vues;
 
+import fr.umontpellier.iut.trainsJavaFX.GestionJeu;
 import fr.umontpellier.iut.trainsJavaFX.ICarte;
 import fr.umontpellier.iut.trainsJavaFX.IJeu;
 import fr.umontpellier.iut.trainsJavaFX.IJoueur;
+import fr.umontpellier.iut.trainsJavaFX.mecanique.cartes.ListeDeCartes;
+import fr.umontpellier.iut.trainsJavaFX.vues.vuesCartes.VueCarte;
 import fr.umontpellier.iut.trainsJavaFX.vues.vuesCartes.VueCarteReserve;
 import fr.umontpellier.iut.trainsJavaFX.vues.vuesCartes.VueReserve;
 import fr.umontpellier.iut.trainsJavaFX.vues.vuesJoueurs.VueAutresJoueurs;
 import fr.umontpellier.iut.trainsJavaFX.vues.vuesJoueurs.VueGestionAutresJoueurs;
 import fr.umontpellier.iut.trainsJavaFX.vues.vuesJoueurs.VueJoueurCourant;
+import javafx.collections.ListChangeListener;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -140,8 +145,10 @@ public class VueDuJeu extends BorderPane {
                     String couleurHex = CouleursJoueurs.couleursBackgroundJoueur.get(newValue.getCouleur());
                     bas.setBackground(Background.fill(Color.web(couleurHex,0.6)));
                     nomJoueur.setText(newValue.getNom() + ": ");
+                    newValue.cartesAChoisir().addListener(choixcartelistener);
                 }
         );
+
         autresJoueurs.creerBindings();
         reserve.creerBindings();
         reserve.prefHeightProperty().bind(plateau.prefHeightProperty());
@@ -162,6 +169,37 @@ public class VueDuJeu extends BorderPane {
 
 
     }
+
+    private final ListChangeListener<ICarte> choixcartelistener = change -> {
+        while (change.next()) {
+            if (change.wasRemoved()) {
+                for (ICarte c : change.getRemoved()) {
+                    choix.getChildren().remove(trouverBouton(c));
+                }
+            }else if(change.wasAdded()){
+                for (ICarte c : change.getAddedSubList()) {
+                    Button button = new Button(c.getNom());
+                    button.setOnAction(event -> {
+                        GestionJeu.getJeu().uneCarteAChoisirChoisie(c.getNom());
+                    });
+                    choix.getChildren().add(button);
+                }
+            }
+        }
+    };
+
+    private Button trouverBouton(ICarte carteATrouver){
+        for(Node node : choix.getChildren()){
+            Button bouton = (Button) node;
+            if(carteATrouver.getNom().equals(bouton.getText())){
+                return bouton;
+            }
+        }
+
+        return null;
+    }
+
+
     public IJeu getJeu() {
         return jeu;
     }

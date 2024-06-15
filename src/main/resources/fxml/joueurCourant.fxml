@@ -61,14 +61,14 @@
                         <Label fx:id="nbJetonsGare" prefWidth="50.0" />
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="100.0" spacing="2.0">
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="100.0" spacing="2.0" >
                      <children>
-                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" fx:id="argent">
                            <image>
                               <Image url="@../images/icons/coins.png" />
                            </image>
                         </ImageView>
-                        <Label fx:id="argent" prefWidth="50.0" />
+                        <Label fx:id="nbArgent" prefWidth="50.0" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="100.0">
@@ -81,9 +81,9 @@
                         <Label fx:id="nbPointsRails" prefWidth="50.0" />
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="100.0">
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="100.0" >
                      <children>
-                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" fx:id="pioche">
                            <image>
                               <Image url="@../images/icons/pioche.png" />
                            </image>
@@ -91,9 +91,9 @@
                         <Label fx:id="nbCartesPioche" prefWidth="50.0" />
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="100.0">
+                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="100.0" >
                      <children>
-                        <ImageView fitHeight="30.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="30.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" fx:id="defausse">
                            <image>
                               <Image url="@../images/icons/cards.png" />
                            </image>
