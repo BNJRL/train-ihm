@@ -144,6 +144,7 @@ public class VueDuJeu extends BorderPane implements IVues{
                     String couleurHex = CouleursJoueurs.couleursBackgroundJoueur.get(newValue.getCouleur());
                     bas.setBackground(Background.fill(Color.web(couleurHex,0.6)));
                     nomJoueur.setText(newValue.getNom() + ": ");
+                    System.out.println("bindings");
                     newValue.cartesAChoisir().addListener(choixcartelistener);
                 }
         );
@@ -177,6 +178,8 @@ public class VueDuJeu extends BorderPane implements IVues{
                     choix.getChildren().remove(trouverBouton(c));
                 }
             }else if(change.wasAdded()){
+                System.out.println(change.getAddedSubList().size());
+                choix.getChildren().clear();
                 for (ICarte c : change.getAddedSubList()) {
                     Button button = new Button(c.getNom());
                     button.setOnAction(event -> {
