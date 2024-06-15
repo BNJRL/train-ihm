@@ -1,20 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<fx:root prefHeight="400.0" prefWidth="600.0" type="BorderPane" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
-   <top>
-      <Pane fx:id="top" prefHeight="121.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
-   </top>
-   <center>
-      <Pane fx:id="centre" prefHeight="229.0" prefWidth="291.0" BorderPane.alignment="CENTER" />
-   </center>
+<fx:root prefHeight="1080.0" prefWidth="1920.0" type="BorderPane" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
    <right>
-      <Pane fx:id="right" prefHeight="177.0" prefWidth="251.0" />
+      <Pane fx:id="right" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="722.0" prefWidth="770.0" />
    </right>
    <bottom>
-      <VBox fx:id="bas" prefHeight="111.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
+      <VBox fx:id="bas" prefHeight="197.0" prefWidth="1920.0" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets top="5.0" />
+         </BorderPane.margin></VBox>
    </bottom>
+   <top>
+      <VBox prefHeight="133.0" prefWidth="1920.0" BorderPane.alignment="CENTER">
+         <children>
+            <Pane fx:id="top" prefHeight="126.0" prefWidth="1920.0" VBox.vgrow="ALWAYS" />
+            <Region prefHeight="72.0" prefWidth="1920.0" />
+         </children>
+      </VBox>
+   </top>
+   <center>
+      <StackPane fx:id="centre" prefHeight="832.0" prefWidth="919.0" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets left="5.0" />
+         </BorderPane.margin>
+      </StackPane>
+   </center>
 </fx:root>

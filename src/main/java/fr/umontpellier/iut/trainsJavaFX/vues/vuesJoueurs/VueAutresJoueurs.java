@@ -56,8 +56,6 @@ public class VueAutresJoueurs extends Pane {
         this.rectangleJoueur.setStroke(Color.web(couleurHex));
 
         this.nomJoueur.setText(String.valueOf(joueur.getNom()));
-        this.setScaleX(0.72);
-        this.setScaleY(0.72);
 
     }
 
@@ -68,6 +66,12 @@ public class VueAutresJoueurs extends Pane {
                     actualiserPointsVictoires();
                 }
         );
+    }
+    public void setTaille(double v){
+        this.setPrefWidth(this.getPrefWidth() * v);
+        this.setPrefHeight(this.getPrefHeight() * v);
+        this.setScaleX(v);
+        this.setScaleY(v);
     }
     public IJoueur getJoueur(){
         return this.joueur;

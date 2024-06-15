@@ -67,10 +67,13 @@ public class TrainsIHM extends Application {
         jeu.run(); // le jeu doit être démarré après que les bindings ont été mis en place
 
 //        VueResultats vueResultats = new VueResultats(this);
+
         primaryStage.setMinWidth(Screen.getPrimary().getBounds().getWidth() / 2.5);
         primaryStage.setMinHeight(Screen.getPrimary().getBounds().getHeight() / 2.5);
+        /**
         primaryStage.setMaxWidth(Screen.getPrimary().getBounds().getWidth());
         primaryStage.setMaxHeight(Screen.getPrimary().getBounds().getHeight());
+         */
 
         primaryStage.setScene(scene);
         primaryStage.setTitle("Trains");

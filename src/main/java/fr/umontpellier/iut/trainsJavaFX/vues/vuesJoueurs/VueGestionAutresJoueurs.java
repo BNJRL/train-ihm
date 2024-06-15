@@ -28,12 +28,14 @@ public class VueGestionAutresJoueurs extends HBox {
         vueAutresJoueursList = new ArrayList<>();
         mapVueAutreJoueur = new HashMap<>();
         for(IJoueur j : jeu.getJoueurs()){
-            mapVueAutreJoueur.put(j, new VueAutresJoueurs(j));
+            VueAutresJoueurs vAU = new VueAutresJoueurs(j);
+            vAU.setTaille(0.60);
+            mapVueAutreJoueur.put(j, vAU);
             vueAutresJoueursList.add(mapVueAutreJoueur.get(j));
         }
 
         this.setSpacing((double) 900 /vueAutresJoueursList.size());
-        this.setAlignment(Pos.CENTER);
+        this.setAlignment(Pos.BASELINE_CENTER);
     }
     public void creerBindings(){
         for(VueAutresJoueurs vAJ : vueAutresJoueursList){

@@ -46,7 +46,7 @@ public class VueDuJeu extends BorderPane {
     @FXML
     private Pane top;
     @FXML
-    private Pane centre;
+    private StackPane centre;
     @FXML
     private Pane right;
     @FXML
@@ -77,30 +77,7 @@ public class VueDuJeu extends BorderPane {
         genererVues();
 
         this.jeu = jeu;
-        passer = new Button("Passer");
-        passer.setPrefSize(100, 500);
-        passer.setMinWidth(50);
-        nomJoueur = new Label();
-        instruction = new Label();
-        nomJoueur.setFont(Font.font("Arial", FontWeight.BOLD, 20));
-        instruction.setFont(Font.font("Arial", FontWeight.BOLD, 20));
-
-        choix = new FlowPane();
-
-        centre = new HBox();
-        HBox ligneInstruction = new HBox();
-        zoneAction = new HBox();
-        zoneAction.getChildren().addAll(passer, joueurCourant);
-
-
-        ligneInstruction.getChildren().addAll(nomJoueur, instruction, choix);
-        ligneInstruction.setAlignment(Pos.CENTER);
-
-
-        //bas = new VBox();
-        bas.getChildren().addAll(ligneInstruction, zoneAction);
-        bas.setAlignment(Pos.CENTER);
-
+        gestionBas();
 
         genererImageFond();
     }
@@ -114,6 +91,29 @@ public class VueDuJeu extends BorderPane {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void gestionBas(){
+        passer = new Button("Passer");
+        passer.setPrefSize(100, 500);
+        passer.setMinWidth(50);
+        nomJoueur = new Label();
+        instruction = new Label();
+        nomJoueur.setFont(Font.font("Arial", FontWeight.BOLD, 20));
+        instruction.setFont(Font.font("Arial", FontWeight.BOLD, 20));
+        choix = new FlowPane();
+
+        HBox ligneInstruction = new HBox();
+        zoneAction = new HBox();
+        zoneAction.getChildren().addAll(passer, joueurCourant);
+
+
+
+        ligneInstruction.getChildren().addAll(nomJoueur, instruction, choix);
+        ligneInstruction.setAlignment(Pos.CENTER);
+
+        bas.getChildren().addAll(ligneInstruction, zoneAction);
+        bas.setAlignment(Pos.CENTER);
     }
 
     private void genererVues(){
@@ -147,6 +147,7 @@ public class VueDuJeu extends BorderPane {
         reserve.prefHeightProperty().bind(plateau.prefHeightProperty());
 
 
+        /**
         this.heightProperty().addListener(
                 (source, oldValue, newValue) -> {
                     autresJoueurs.setPrefHeight((Double) newValue/9);
@@ -157,6 +158,7 @@ public class VueDuJeu extends BorderPane {
                     joueurCourant.setPrefHeight(zoneAction.getHeight());
                 }
         );
+         */
 
 
     }

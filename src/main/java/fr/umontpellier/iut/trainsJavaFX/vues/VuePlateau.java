@@ -93,6 +93,7 @@ public class VuePlateau extends Pane {
 
         mapVille.fitWidthProperty().bind(((Region) getParent()).widthProperty());
         mapVille.fitHeightProperty().bind(((Region) getParent()).heightProperty());
+
         /**
         mapVille.layoutXProperty().bind(new DoubleBinding() { // Pour maintenir le plateau au centre
             {
@@ -114,6 +115,7 @@ public class VuePlateau extends Pane {
             }
         });
             */
+
 
     }
 
