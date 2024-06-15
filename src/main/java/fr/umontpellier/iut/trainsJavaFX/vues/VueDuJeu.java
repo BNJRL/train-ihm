@@ -173,12 +173,13 @@ public class VueDuJeu extends BorderPane implements IVues{
 
     private final ListChangeListener<ICarte> choixcartelistener = change -> {
         while (change.next()) {
-            if (change.wasRemoved()) {
+            /*if (change.wasRemoved()) {
+                System.out.println("retirer");
                 for (ICarte c : change.getRemoved()) {
                     choix.getChildren().remove(trouverBouton(c));
                 }
             }else if(change.wasAdded()){
-                System.out.println(change.getAddedSubList().size());
+                System.out.println("ajout");
                 choix.getChildren().clear();
                 for (ICarte c : change.getAddedSubList()) {
                     Button button = new Button(c.getNom());
@@ -187,6 +188,14 @@ public class VueDuJeu extends BorderPane implements IVues{
                     });
                     choix.getChildren().add(button);
                 }
+            }*/
+            choix.getChildren().clear();
+            for(ICarte c : GestionJeu.getJeu().joueurCourantProperty().getValue().cartesAChoisir()) {
+                Button button = new Button(c.getNom());
+                button.setOnAction(event -> {
+                    GestionJeu.getJeu().uneCarteAChoisirChoisie(c.getNom());
+                });
+                choix.getChildren().add(button);
             }
         }
     };
