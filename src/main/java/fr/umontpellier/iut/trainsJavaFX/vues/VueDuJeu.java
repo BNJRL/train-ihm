@@ -240,16 +240,15 @@ public class VueDuJeu extends BorderPane implements IVues{
     }
     @Override
     public void onExclamationEntered(VueCarte vueCarte) {
-        System.out.println("test"+vueCarte.getCarte().getNom());
         VueCarte nouvelle = new VueCarte();
         nouvelle.setCarte(vueCarte.getCarte());
+        nouvelle.activerExclamation(false);
         nouvelle.setTaille(this.getWidth()/1920);
         centre.getChildren().add(nouvelle);
     }
 
     @Override
     public void onExclamationExited(VueCarte vueCarte) {
-        System.out.println("je suis parti");
         centre.getChildren().remove(1);
     }
 }

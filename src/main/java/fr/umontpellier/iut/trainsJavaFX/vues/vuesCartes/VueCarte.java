@@ -33,9 +33,11 @@ public class VueCarte extends Pane {
     @FXML
     private ImageView exclamation;
     private ICarte carte;
+    private boolean etatExclamation;
     public VueCarte(){
         loadFXML();
         setupExclamationClickHandler();
+        this.etatExclamation = true;
     }
     private EventHandler<ActionEvent> onExclamationEntered;
     private EventHandler<ActionEvent> onExclamationExited;
@@ -102,28 +104,42 @@ public class VueCarte extends Pane {
         image.setGraphic(new ImageView("images/cartes/" + convertisseurTexte(carte.getNom()) + ".jpg"));
     }
 
-    /**
-     public static ICarte valueOf(String val){
-     return GestionJeu.getJeu().getCartesPresentes().getCarte(val);
-     }
-     */
+    public void activerExclamation(boolean b){
+        if(!b){
+            exclamation.setImage(null);
+            this.etatExclamation = false;
+        } else{
+            exclamation.setImage(new Image("images/icons/point_exclamation.png"));
+            this.etatExclamation = true;
+        }
+    }
 
     private void setupExclamationClickHandler() {
         exclamation.setOnMouseEntered(event -> {
-            if (onExclamationEntered != null) {
-                onExclamationEntered.handle(new ActionEvent(this, null));
+            if(etatExclamation){
+                if (onExclamationEntered != null) {
+                    onExclamationEntered.handle(new ActionEvent(this, null));
+                }
+                this.exclamation.setImage(new Image("images/icons/point_exclamation_active.png"));
             }
         });
         exclamation.setOnMouseExited(event -> {
-            if (onExclamationExited != null) {
-                onExclamationExited.handle(new ActionEvent(this, null));
+            if(etatExclamation){
+                if (onExclamationExited != null) {
+                    onExclamationExited.handle(new ActionEvent(this, null));
+
+                }
+                this.exclamation.setImage(new Image("images/icons/point_exclamation.png"));
             }
         });
     }
     public void setOnExclamationEntered(EventHandler<ActionEvent> onExclamationEntered) {
+
         this.onExclamationEntered = onExclamationEntered;
+
     }
     public void setOnExclamationExited(EventHandler<ActionEvent> onExclamationExited) {
         this.onExclamationExited = onExclamationExited;
+
     }
 }

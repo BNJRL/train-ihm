@@ -3,12 +3,14 @@ package fr.umontpellier.iut.trainsJavaFX.vues.vuesCartes;
 import fr.umontpellier.iut.trainsJavaFX.GestionJeu;
 import fr.umontpellier.iut.trainsJavaFX.ICarte;
 import fr.umontpellier.iut.trainsJavaFX.IJeu;
+import javafx.beans.binding.DoubleBinding;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -29,6 +31,7 @@ public class VueReserve extends Pane {
         loadFXML();
         initialize();
         genererReserve();
+
     }
     private void loadFXML(){
         try {
@@ -82,4 +85,5 @@ public class VueReserve extends Pane {
             );
         }
     }
+
 }
