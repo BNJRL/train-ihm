@@ -18,10 +18,10 @@
          </BorderPane.margin></VBox>
    </bottom>
    <top>
-      <VBox prefHeight="133.0" prefWidth="1920.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="135.0" prefWidth="1920.0" BorderPane.alignment="CENTER">
          <children>
-            <Pane fx:id="top" prefHeight="126.0" prefWidth="1920.0" VBox.vgrow="ALWAYS" />
-            <Region prefHeight="72.0" prefWidth="1920.0" />
+            <Pane fx:id="top" VBox.vgrow="ALWAYS" />
+            <Region prefHeight="54.0" prefWidth="1920.0" />
          </children>
       </VBox>
    </top>

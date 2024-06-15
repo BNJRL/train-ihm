@@ -9,7 +9,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class VueReserve extends Pane {
@@ -40,6 +42,9 @@ public class VueReserve extends Pane {
             mapVueCarte.put(c,new VueCarteReserve(c, jeu.getTaillesPilesReserveProperties().get(c.getNom()).intValue()));
             ajouterEnfant(mapVueCarte.get(c));
         }
+    }
+    public Collection<VueCarteReserve> getVueCarteReserve(){
+        return mapVueCarte.values();
     }
     private void ajouterEnfant(VueCarteReserve vueCarte){
         gridPane.add(vueCarte, compteur%val,compteur/val);

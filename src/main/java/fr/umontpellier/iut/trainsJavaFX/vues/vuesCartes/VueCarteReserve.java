@@ -63,6 +63,10 @@ public class VueCarteReserve extends Pane {
         return carte;
     }
 
+    public VueCarte getVueCarte(){
+        return this.vue;
+    }
+
     public void decrementerCompteur(){
         if(this.nbReserve.getText().equals("0")){
 

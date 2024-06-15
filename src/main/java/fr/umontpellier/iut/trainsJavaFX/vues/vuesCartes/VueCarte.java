@@ -5,6 +5,7 @@ import fr.umontpellier.iut.trainsJavaFX.ICarte;
 import fr.umontpellier.iut.trainsJavaFX.mecanique.cartes.Carte;
 import fr.umontpellier.iut.trainsJavaFX.mecanique.cartes.ListeDeCartes;
 import javafx.beans.binding.Bindings;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -34,7 +35,10 @@ public class VueCarte extends Pane {
     private ICarte carte;
     public VueCarte(){
         loadFXML();
+        setupExclamationClickHandler();
     }
+    private EventHandler<ActionEvent> onExclamationEntered;
+    private EventHandler<ActionEvent> onExclamationExited;
     private void loadFXML() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/carte.fxml"));
@@ -103,4 +107,23 @@ public class VueCarte extends Pane {
      return GestionJeu.getJeu().getCartesPresentes().getCarte(val);
      }
      */
+
+    private void setupExclamationClickHandler() {
+        exclamation.setOnMouseEntered(event -> {
+            if (onExclamationEntered != null) {
+                onExclamationEntered.handle(new ActionEvent(this, null));
+            }
+        });
+        exclamation.setOnMouseExited(event -> {
+            if (onExclamationExited != null) {
+                onExclamationExited.handle(new ActionEvent(this, null));
+            }
+        });
+    }
+    public void setOnExclamationEntered(EventHandler<ActionEvent> onExclamationEntered) {
+        this.onExclamationEntered = onExclamationEntered;
+    }
+    public void setOnExclamationExited(EventHandler<ActionEvent> onExclamationExited) {
+        this.onExclamationExited = onExclamationExited;
+    }
 }

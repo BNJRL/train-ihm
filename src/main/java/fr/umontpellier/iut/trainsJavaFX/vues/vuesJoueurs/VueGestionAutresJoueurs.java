@@ -4,23 +4,45 @@ import fr.umontpellier.iut.trainsJavaFX.GestionJeu;
 import fr.umontpellier.iut.trainsJavaFX.IJeu;
 import fr.umontpellier.iut.trainsJavaFX.IJoueur;
 import fr.umontpellier.iut.trainsJavaFX.vues.CouleursJoueurs;
+import javafx.beans.binding.DoubleBinding;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class VueGestionAutresJoueurs extends HBox {
+public class VueGestionAutresJoueurs extends Pane {
     private IJeu jeu;
     private List<VueAutresJoueurs> vueAutresJoueursList;
 
+    @FXML
+    private HBox box;
+
     private Map<IJoueur, VueAutresJoueurs> mapVueAutreJoueur;
     public VueGestionAutresJoueurs(){
+        loadFXML();
         generer();
+    }
+
+    private void loadFXML(){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/gestionsautresjoueurs.fxml"));
+            loader.setController(this);
+            loader.setRoot(this);
+            loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     private void generer(){
         jeu = GestionJeu.getJeu();
@@ -34,46 +56,40 @@ public class VueGestionAutresJoueurs extends HBox {
             vueAutresJoueursList.add(mapVueAutreJoueur.get(j));
         }
 
-        this.setSpacing((double) 900 /vueAutresJoueursList.size());
-        this.setAlignment(Pos.BASELINE_CENTER);
+        box.setAlignment(Pos.CENTER);
+
     }
     public void creerBindings(){
         for(VueAutresJoueurs vAJ : vueAutresJoueursList){
             vAJ.creerBindings();
         }
+
+        attributionEnfants();
+        bindingsTaille();
+    }
+
+    private void attributionEnfants(){
         jeu.joueurCourantProperty().addListener(
                 (source, oldValue, newValue) -> {
-                    this.getChildren().clear();
+                    box.getChildren().clear();
                     for(VueAutresJoueurs vAJ : vueAutresJoueursList){
                         if(!newValue.equals(vAJ.getJoueur())){
-                            this.getChildren().add(vAJ);
+                            box.getChildren().add(vAJ);
                         }
                     }
                 }
         );
-        jeu.joueurCourantProperty().get().mainProperty().addListener(
-                (source, oldValue, newValue) -> {
-                    for(IJoueur j : this.jeu.getJoueurs()){
-                        System.out.println("La main change mdr");
-                        mapVueAutreJoueur.get(j).actualiserPointsVictoires();
-                    }
+    }
+
+    private void bindingsTaille() {
+        int nbJoueurs = this.vueAutresJoueursList.size();
+        Region conteneurParent = (Region) getParent();
+        conteneurParent.widthProperty().addListener(
+                (source, oldValue, newValue) ->
+                {
+                    box.setSpacing(conteneurParent.getWidth()/(nbJoueurs+2));
                 }
         );
-        jeu.joueurCourantProperty().get().cartesRecuesProperty().addListener(
-                (source, oldValue, newValue) -> {
-                    for(IJoueur j : this.jeu.getJoueurs()){
-                        System.out.println("Une carte a ete recue");
-                        mapVueAutreJoueur.get(j).actualiserPointsVictoires();
-                    }
-                }
-        );
-        jeu.joueurCourantProperty().get().nbJetonsRailsProperty().addListener(
-                (source, oldValue, newValue) -> {
-                    for(IJoueur j : this.jeu.getJoueurs()){
-                        System.out.println("Un rail est posé");
-                        mapVueAutreJoueur.get(j).actualiserPointsVictoires();
-                    }
-                }
-        );
+        box.layoutXProperty().bind(conteneurParent.widthProperty().subtract(box.widthProperty()).divide(2).subtract(30));
     }
 }

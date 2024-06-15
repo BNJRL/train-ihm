@@ -66,6 +66,11 @@ public class VueAutresJoueurs extends Pane {
                     actualiserPointsVictoires();
                 }
         );
+        this.joueur.scoreProperty().addListener(
+                (source,oldValue,newValue) ->{
+                    actualiserPointsVictoires();
+                }
+        );
     }
     public void setTaille(double v){
         this.setPrefWidth(this.getPrefWidth() * v);
@@ -77,6 +82,6 @@ public class VueAutresJoueurs extends Pane {
         return this.joueur;
     }
     public void actualiserPointsVictoires(){
-        this.ptsVictoiresJoueur.setText(String.valueOf(this.joueur.getScoreTotal()));
+        this.ptsVictoiresJoueur.setText(String.valueOf(this.joueur.scoreProperty().intValue()));
     }
 }

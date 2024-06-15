@@ -42,7 +42,7 @@ import java.util.Map;
  * (le joueur courant, ses cartes en main, son score, ...)
  * ainsi que les listeners à exécuter lorsque ces éléments changent
  */
-public class VueDuJeu extends BorderPane {
+public class VueDuJeu extends BorderPane implements IVues{
 
     @FXML
     private VueGestionAutresJoueurs autresJoueurs;
@@ -130,7 +130,6 @@ public class VueDuJeu extends BorderPane {
         right.getChildren().add(reserve);
         top.getChildren().add(autresJoueurs);
         centre.getChildren().add(plateau);
-
     }
 
     public void creerBindings() {
@@ -166,9 +165,10 @@ public class VueDuJeu extends BorderPane {
                 }
         );
          */
-
+        initialiserExclamation();
 
     }
+
 
     private final ListChangeListener<ICarte> choixcartelistener = change -> {
         while (change.next()) {
@@ -218,4 +218,26 @@ public class VueDuJeu extends BorderPane {
     }
 
     EventHandler<? super MouseEvent> actionPasserParDefaut = (mouseEvent -> System.out.println("Vous avez choisi Passer"));
+
+    private void initialiserExclamation(){
+        for(VueCarteReserve vue : this.reserve.getVueCarteReserve()){
+            VueCarte vueCarte = vue.getVueCarte();
+            vueCarte.setOnExclamationEntered(event -> onExclamationEntered(vueCarte));
+            vueCarte.setOnExclamationExited(event -> onExclamationExited(vueCarte));
+        }
+    }
+    @Override
+    public void onExclamationEntered(VueCarte vueCarte) {
+        System.out.println("test"+vueCarte.getCarte().getNom());
+        VueCarte nouvelle = new VueCarte();
+        nouvelle.setCarte(vueCarte.getCarte());
+        nouvelle.setTaille(0.9);
+        centre.getChildren().add(nouvelle);
+    }
+
+    @Override
+    public void onExclamationExited(VueCarte vueCarte) {
+        System.out.println("je suis parti");
+        centre.getChildren().remove(1);
+    }
 }
