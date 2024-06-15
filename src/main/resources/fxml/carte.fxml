@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
 
-<fx:root type="Pane" stylesheets="@/css/style.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="525.0" prefWidth="375.0" type="Pane" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+
+    <children>
+        <Label fx:id="image" prefHeight="525.0" prefWidth="375.0" />
+        <ImageView fx:id="exclamation" fitHeight="124.0" fitWidth="116.0" layoutX="-19.0" layoutY="197.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../images/icons/point_exclamation.png" />
+            </image>
+        </ImageView>
+    </children>
 </fx:root>

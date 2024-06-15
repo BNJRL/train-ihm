@@ -6,9 +6,8 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<fx:root maxHeight="525.0" maxWidth="375.0" prefHeight="525.0" prefWidth="375.0" type="Pane" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root type="Pane" maxHeight="525.0" maxWidth="375.0" prefHeight="525.0" prefWidth="375.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Pane fx:id="vueCarte" prefHeight="167.0" prefWidth="112.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#69696948" height="190.0" layoutX="188.0" layoutY="335.0" stroke="BLACK" strokeType="INSIDE" width="186.0" />
       <Label fx:id="nbReserve" alignment="CENTER" layoutX="188.0" layoutY="335.0" prefHeight="190.0" prefWidth="187.0" text="0" textFill="WHITE">
          <font>

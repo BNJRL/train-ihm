@@ -1,10 +1,12 @@
 package fr.umontpellier.iut.trainsJavaFX.vues;
 
+import fr.umontpellier.iut.trainsJavaFX.GestionJeu;
 import fr.umontpellier.iut.trainsJavaFX.ICarte;
 import fr.umontpellier.iut.trainsJavaFX.mecanique.cartes.Carte;
 import fr.umontpellier.iut.trainsJavaFX.mecanique.cartes.ListeDeCartes;
 import javafx.beans.binding.Bindings;
 import javafx.event.EventHandler;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.effect.ColorAdjust;
@@ -24,21 +26,38 @@ import java.io.IOException;
  * On y définit le listener à exécuter lorsque cette carte a été choisie par l'utilisateur
  */
 public class VueCarte extends Pane {
-    private ICarte carte;
+    @FXML
     private Label image;
     private ImageView imageView;
-
-    public VueCarte(ICarte carte) {
-        this.carte = (Carte) carte;
-        this.image = new Label();
-
-        imageView = new ImageView("images/cartes/"+convertisseurTexte(carte.getNom())+".jpg");
-        image = new Label("",imageView);
-        getChildren().add(image);
-
+    @FXML
+    private ImageView exclamation;
+    private ICarte carte;
+    public VueCarte(){
+        loadFXML();
     }
-
+    private void loadFXML() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/carte.fxml"));
+            loader.setController(this);
+            loader.setRoot(this);
+            loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public Label getImage(){
+        return this.image;
+    }
+    public ICarte getCarte(){
+        return carte;
+    }
+    public void setCarte(ICarte carte){
+        this.carte = carte;
+        imageView = new ImageView("images/cartes/"+convertisseurTexte(carte.getNom())+".png");
+        image.setGraphic(imageView);
+    }
     public void creerBindingsCartes(FlowPane parents, int rang) {
+
         sceneProperty().addListener((observable, oldScene, newScene) -> {
             if (newScene != null) {
                 imageView.fitWidthProperty().bind(Bindings.createDoubleBinding(() -> {
@@ -49,38 +68,39 @@ public class VueCarte extends Pane {
                 }, newScene.widthProperty()));
                 imageView.fitHeightProperty().bind(imageView.fitWidthProperty().multiply(1.4));
             }
+            image.setGraphic(imageView);
         });
+
+
+    }
+    public void setTaille(double v){
+        this.setPrefWidth(this.getPrefWidth() * v);
+        this.setPrefHeight(this.getPrefHeight() * v);
+        this.setScaleX(v);
+        this.setScaleY(v);
+    }
+
+    private String convertisseurTexte(String str){
+        return str.replaceAll(" ","_").replaceAll("ô","o").toLowerCase().replaceAll("é","e");
     }
 
     public void setCarteChoisieListener(EventHandler<MouseEvent> quandCarteEstChoisie) {
         setOnMouseClicked(quandCarteEstChoisie);
     }
-
-    private String convertisseurTexte(String str){
-       return str.replaceAll(" ","_").replaceAll("ô","o").toLowerCase().replaceAll("é","e");
-    }
-
-    public Label getImage() {
-        return image;
-    }
-    public void setCarte(ICarte c){
-        this.carte = c;
-    }
-    public ICarte getCarte(){
-        return carte;
-    }
     public void noirEtBlanc() {
-        ImageView imageView = new ImageView("images/cartes/" + convertisseurTexte(carte.getNom()) + ".jpg");
+        image.setGraphic(new ImageView("images/cartes/" + convertisseurTexte(carte.getNom()) + ".jpg"));
 
         ColorAdjust colorAdjust = new ColorAdjust();
         colorAdjust.setSaturation(-1.0);
-        imageView.setEffect(colorAdjust);
-
-        image.setGraphic(imageView);
+        image.setEffect(colorAdjust);
     }
     public void imageParDefaut(){
-        ImageView imageView = new ImageView("images/cartes/" + convertisseurTexte(carte.getNom()) + ".jpg");
-
-        image.setGraphic(imageView);
+        image.setGraphic(new ImageView("images/cartes/" + convertisseurTexte(carte.getNom()) + ".jpg"));
     }
+
+    /**
+     public static ICarte valueOf(String val){
+     return GestionJeu.getJeu().getCartesPresentes().getCarte(val);
+     }
+     */
 }

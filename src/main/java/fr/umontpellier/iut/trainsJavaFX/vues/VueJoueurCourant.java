@@ -79,8 +79,10 @@ public class VueJoueurCourant extends HBox{
                     cartesEnMain.getChildren().clear();
                     ListeDeCartes l = newValue.mainProperty();
                     for (ICarte c : l) {
-                        VueCarte carte = new VueCarte(c);
-                        carte.creerBindingsCartes(cartesEnMain, 1);
+                        VueCarte carte = new VueCarte();
+                        carte.setCarte(c);
+                        carte.setTaille(0.30);
+                        //carte.creerBindingsCartes(cartesEnMain, 1);
                         cartesEnMain.getChildren().add(carte);
 
                         carte.setCarteChoisieListener(event -> {
@@ -113,8 +115,10 @@ public class VueJoueurCourant extends HBox{
                 }
             }else if(change.wasAdded()){
                 for (ICarte c : change.getAddedSubList()) {
-                    VueCarte carte = new VueCarte(c);
-                    carte.creerBindingsCartes(cartesEnMain, 1);
+                    VueCarte carte = new VueCarte();
+                    carte.setCarte(c);
+                    carte.setTaille(0.30);
+                   // carte.creerBindingsCartes(cartesEnMain, 1);
                     cartesEnMain.getChildren().add(carte);
 
                     carte.setCarteChoisieListener(event -> {
@@ -133,8 +137,10 @@ public class VueJoueurCourant extends HBox{
                 }
             }else if(change.wasAdded()){
                 for (ICarte c : change.getAddedSubList()) {
-                    VueCarte carte = new VueCarte(c);
-                    carte.creerBindingsCartes(cartesEnJeu, 2);
+                    VueCarte carte = new VueCarte();
+                    carte.setCarte(c);
+                    carte.setTaille(0.15);
+                   // carte.creerBindingsCartes(cartesEnJeu, 2);
                     cartesEnJeu.getChildren().add(carte);
 
                     carte.setCarteChoisieListener(event -> {
@@ -153,8 +159,10 @@ public class VueJoueurCourant extends HBox{
                 }
             }else if(change.wasAdded()){
                 for (ICarte c : change.getAddedSubList()) {
-                    VueCarte carte = new VueCarte(c);
-                    carte.creerBindingsCartes(cartesRecues, 2);
+                    VueCarte carte = new VueCarte();
+                    carte.setCarte(c);
+                    carte.setTaille(0.15);
+                   // carte.creerBindingsCartes(cartesRecues, 2);
                     cartesRecues.getChildren().add(carte);
 
                 }
