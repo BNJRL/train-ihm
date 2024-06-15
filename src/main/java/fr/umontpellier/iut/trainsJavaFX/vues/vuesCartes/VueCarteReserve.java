@@ -48,7 +48,7 @@ public class VueCarteReserve extends Pane {
     private void initialize(ICarte carte, int n) {
         nbReserve.setText(String.valueOf(n));
 
-        double v = 0.27;
+        double v = 0.24;
         this.setPrefWidth(this.getPrefWidth() * v);
         this.setPrefHeight(this.getPrefHeight() * v);
         this.setScaleX(v);

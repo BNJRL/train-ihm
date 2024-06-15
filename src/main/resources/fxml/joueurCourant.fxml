@@ -18,7 +18,10 @@
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <FlowPane fx:id="cartesEnMain" prefHeight="500.0" prefWidth="900.0" />
+            <FlowPane fx:id="cartesEnMain" prefHeight="500.0" prefWidth="900.0">
+               <VBox.margin>
+                  <Insets bottom="70.0" />
+               </VBox.margin></FlowPane>
          </children>
          <HBox.margin>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -61,9 +64,9 @@
                         <Label fx:id="nbJetonsGare" prefWidth="50.0" />
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="100.0" spacing="2.0" >
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="100.0" spacing="2.0">
                      <children>
-                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" fx:id="argent">
+                        <ImageView fx:id="argent" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/icons/coins.png" />
                            </image>
@@ -81,9 +84,9 @@
                         <Label fx:id="nbPointsRails" prefWidth="50.0" />
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="100.0" >
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="100.0">
                      <children>
-                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" fx:id="pioche">
+                        <ImageView fx:id="pioche" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/icons/pioche.png" />
                            </image>
@@ -91,9 +94,9 @@
                         <Label fx:id="nbCartesPioche" prefWidth="50.0" />
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="100.0" >
+                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="100.0">
                      <children>
-                        <ImageView fitHeight="30.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" fx:id="defausse">
+                        <ImageView fx:id="defausse" fitHeight="30.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/icons/cards.png" />
                            </image>
@@ -116,7 +119,10 @@
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Label>
-                  <FlowPane fx:id="cartesEnJeu" alignment="CENTER" prefHeight="200.0" prefWidth="620.0" />
+                  <FlowPane fx:id="cartesEnJeu" alignment="CENTER" maxHeight="200.0" prefHeight="200.0" prefWidth="620.0">
+                     <HBox.margin>
+                        <Insets bottom="70.0" />
+                     </HBox.margin></FlowPane>
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -132,7 +138,10 @@
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Label>
-                  <FlowPane fx:id="cartesRecues" alignment="CENTER" prefHeight="200.0" prefWidth="620.0" />
+                  <FlowPane fx:id="cartesRecues" alignment="CENTER" maxHeight="200.0" prefHeight="200.0" prefWidth="620.0">
+                     <HBox.margin>
+                        <Insets bottom="70.0" />
+                     </HBox.margin></FlowPane>
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

@@ -68,8 +68,8 @@ public class TrainsIHM extends Application {
 
 //        VueResultats vueResultats = new VueResultats(this);
 
-        primaryStage.setMinWidth(Screen.getPrimary().getBounds().getWidth() / 2.4);
-        primaryStage.setMinHeight(Screen.getPrimary().getBounds().getHeight() / 2.4);
+        primaryStage.setMinWidth(Screen.getPrimary().getBounds().getWidth() / 2.2);
+        primaryStage.setMinHeight(Screen.getPrimary().getBounds().getHeight() / 2.2);
         /**
         primaryStage.setMaxWidth(Screen.getPrimary().getBounds().getWidth());
         primaryStage.setMaxHeight(Screen.getPrimary().getBounds().getHeight());

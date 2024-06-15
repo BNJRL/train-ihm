@@ -4,11 +4,13 @@ import fr.umontpellier.iut.trainsJavaFX.GestionJeu;
 import fr.umontpellier.iut.trainsJavaFX.ICarte;
 import fr.umontpellier.iut.trainsJavaFX.IJeu;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 
+import java.io.IOException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -24,15 +26,26 @@ public class VueReserve extends Pane {
     private GridPane gridPane;
 
     public VueReserve(){
+        loadFXML();
         initialize();
         genererReserve();
+    }
+    private void loadFXML(){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/reserve.fxml"));
+            loader.setController(this);
+            loader.setRoot(this);
+            loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     public void initialize(){
         this.compteur = 0;
         this.val = 6;
-        gridPane = new GridPane();
+        //gridPane = new GridPane();
         //gridPane.setHgap(1);
-        getChildren().add(gridPane);
+        //getChildren().add(gridPane);
     }
 
     private void genererReserve(){
