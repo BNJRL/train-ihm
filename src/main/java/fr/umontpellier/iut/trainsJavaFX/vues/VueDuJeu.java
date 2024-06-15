@@ -231,7 +231,7 @@ public class VueDuJeu extends BorderPane implements IVues{
         System.out.println("test"+vueCarte.getCarte().getNom());
         VueCarte nouvelle = new VueCarte();
         nouvelle.setCarte(vueCarte.getCarte());
-        nouvelle.setTaille(0.9);
+        nouvelle.setTaille(this.getWidth()/1920);
         centre.getChildren().add(nouvelle);
     }
 
