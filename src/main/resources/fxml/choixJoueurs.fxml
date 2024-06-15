@@ -1,10 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Scene?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.stage.Stage?>
 
-<fx:root type="Pane" stylesheets="@/css/style.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
-</fx:root>
+<Stage xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+    <scene>
+        <Scene>
+            <AnchorPane prefHeight="200" prefWidth="200">
+            <children>
+               <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0">
+                  <children>
+                     <VBox fx:id="vBox" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
+                        <children>
+                           <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                              <children>
+                                 <Label text="A combien de personne voulez vous jouer" />
+                                 <ComboBox fx:id="nbJoueurs" prefWidth="150.0" promptText="nbJoueurs" visibleRowCount="4" />
+                              </children>
+                           </HBox>
+                        </children>
+                     </VBox>
+                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                        <children>
+                           <Label text="Sur quel plateau voulez vous jouer?" />
+                           <ComboBox fx:id="plateau" prefWidth="150.0" promptText="plateau" />
+                        </children>
+                     </HBox>
+                     <Button fx:id="valider" mnemonicParsing="false" text="Valider">
+                        <VBox.margin>
+                           <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                        </VBox.margin>
+                        <padding>
+                           <Insets bottom="15.0" left="30.0" right="30.0" top="15.0" />
+                        </padding>
+                     </Button>
+                  </children>
+               </VBox>
+            </children></AnchorPane>
+        </Scene>
+    </scene>
+</Stage>
