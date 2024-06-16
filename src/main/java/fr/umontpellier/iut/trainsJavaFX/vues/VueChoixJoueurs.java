@@ -1,5 +1,7 @@
 package fr.umontpellier.iut.trainsJavaFX.vues;
 
+import fr.umontpellier.iut.trainsJavaFX.GestionJeu;
+import fr.umontpellier.iut.trainsJavaFX.mecanique.CouleurJoueur;
 import fr.umontpellier.iut.trainsJavaFX.mecanique.plateau.Plateau;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
@@ -11,12 +13,13 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -38,71 +41,86 @@ public class VueChoixJoueurs extends Stage {
     private Plateau plateauChoisi;
 
     @FXML
-    private ComboBox plateau;
+    private ComboBox<String> plateau;
     @FXML
-    private ComboBox nbJoueurs;
+    private ComboBox<String> nbJoueurs;
     @FXML
     private VBox vBoxJoueur;
     @FXML
     private Button valider;
 
+    private final static String[] defaultName = {"Benjamin","Samuel","Alice","Bernard"};
 
     public VueChoixJoueurs() {
+        nomsJoueurs = FXCollections.observableArrayList();
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/choixJoueurs.fxml"));
             loader.setController(this);
+            loader.setRoot(this);
             loader.load();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        nomsJoueurs = FXCollections.observableArrayList();
-
     }
 
     @FXML
     public void initialize() {
-        nbJoueurs.getItems().addAll("1", "2", "3", "4");
-        plateau.getItems().addAll("Osaka", "Tokyo");
+        setTitle("Personnalisation de la partie");
+        nbJoueurs.getItems().addAll("2", "3", "4");
+        nbJoueurs.valueProperty().set("Combien ?");
+
+        plateau.getItems().addAll("OSAKA", "TOKYO");
+        plateau.valueProperty().set(plateau.getItems().iterator().next());
+        plateauChoisi = Plateau.OSAKA;
         creerBindings();
     }
 
-    public void creerBindings(){
-        nbJoueurs.valueProperty().addListener(new ChangeListener<String>() {
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                vBoxJoueur.getChildren().clear();
-                for (int i = 0; i < valueOf(newValue); i++) {
-                    Label l = new Label("Nom du joueur " + (i + 1) + ": ");
-                    TextField tf = new TextField();
-                    HBox hb = new HBox();
-                    hb.getChildren().addAll(l, tf);
-                    vBoxJoueur.getChildren().add(hb);
+    public void creerBindings() {
+        nbJoueurs.valueProperty().addListener(
+                (observable, oldValue, newValue) -> {
+                    vBoxJoueur.getChildren().clear();
 
-                    tf.textProperty().addListener(event -> {
-                        setListeDesNomsDeJoueurs();
-                    });
-                }
+                    for (int i = 0; i < Double.parseDouble(newValue); i++) {
+                        Label l = new Label("Joueur " + (i + 1) + ": ");
+                        TextField tf = new TextField();
+                        ColorPicker cp = new ColorPicker(Color.web(CouleursJoueurs.getValue(i)));
+                        int finalI = i;
+                        cp.setOnAction(actionEvent -> {
+                            modificationCouleur(finalI, cp);
+                        });
+                        tf.setPromptText(defaultName[i]);
+                        HBox hb = new HBox();
+                        hb.setAlignment(Pos.CENTER);
+                        vBoxJoueur.setSpacing(10);
+                        hb.getChildren().addAll(l, tf,cp);
+                        vBoxJoueur.getChildren().add(hb);
+                    }
 
-            }
-        });
-
-        plateau.valueProperty().addListener( new ChangeListener<String>() {
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                plateauChoisi = Plateau.valueOf(newValue);
-            }
-        });
-
-        BooleanProperty nonValide = new SimpleBooleanProperty();
-        nonValide.bind(Bindings.isEmpty(nomsJoueurs).and(Bindings.equal(null, plateauChoisi)));
-        valider.disableProperty().bind(nonValide);
-        valider.disableProperty().addListener(
-                (source, oldValue, newValue) -> {
-                   this.hide();
-                }
+                });
+        plateau.valueProperty().addListener(
+                (source, oldValue, newValue) ->
+                        plateauChoisi = Plateau.valueOf(newValue)
         );
+
+        valider.setOnAction( actionEvent ->{
+             setListeDesNomsDeJoueurs();
+        });
+
+
+
     }
+    private void modificationCouleur(int index, ColorPicker colorPicker) {
+        Color color = colorPicker.getValue();
+        String colorHex = String.format("#%02X%02X%02X",
+                (int) (color.getRed() * 255),
+                (int) (color.getGreen() * 255),
+                (int) (color.getBlue() * 255));
 
-
-
+        CouleurJoueur joueur = CouleursJoueurs.getKey(index);
+        if (joueur != null) {
+            CouleursJoueurs.setCouleurCustom(joueur, colorHex);
+        }
+    }
 
     public List<String> getNomsJoueurs() {
         return nomsJoueurs;
@@ -112,7 +130,7 @@ public class VueChoixJoueurs extends Stage {
      * Définit l'action à exécuter lorsque la liste des participants est correctement initialisée
      */
     public void setNomsDesJoueursDefinisListener(ListChangeListener<String> quandLesNomsDesJoueursSontDefinis) {
-
+        nomsJoueurs.addListener(quandLesNomsDesJoueursSontDefinis);
     }
 
     /**
@@ -121,17 +139,23 @@ public class VueChoixJoueurs extends Stage {
      */
     protected void setListeDesNomsDeJoueurs() {
         ArrayList<String> tempNamesList = new ArrayList<>();
-        for (int i = 1; i <= getNombreDeJoueurs() ; i++) {
-            String name = getJoueurParNumero(i);
-            if (name == null || name.equals("")) {
-                tempNamesList.clear();
-                break;
+        boolean possible = true;
+        for(Node n : vBoxJoueur.getChildren()){
+            n = (HBox) n;
+            for(Node nA : ((HBox) n).getChildren()){
+                if (nA instanceof TextField){
+                    String texte = ((TextField) nA).getText().trim();
+                    if(texte.isEmpty()) {
+                        possible = false;
+                        break;
+                    } else{
+                        tempNamesList.add(texte);
+                    }
+                }
             }
-            else
-                tempNamesList.add(name);
+            if(!possible) break;
         }
-        if (!tempNamesList.isEmpty()) {
-            nomsJoueurs.clear();
+        if(possible){
             nomsJoueurs.addAll(tempNamesList);
         }
     }
@@ -140,11 +164,13 @@ public class VueChoixJoueurs extends Stage {
      * Retourne le nombre de participants à la partie que l'utilisateur a renseigné
      */
     protected int getNombreDeJoueurs() {
-        return Integer.parseInt(String.valueOf(nbJoueurs.getValue()));
+        String str = String.valueOf(nbJoueurs.getValue());
+        return str.equals("null") ? 0 : Integer.parseInt(str);
     }
 
     /**
      * Retourne le nom que l'utilisateur a renseigné pour le ième participant à la partie
+     *
      * @param playerNumber : le numéro du participant
      */
     protected String getJoueurParNumero(int playerNumber) {

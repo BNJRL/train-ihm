@@ -27,7 +27,7 @@ public class TrainsIHM extends Application {
     private Stage primaryStage;
     private Jeu jeu;
 
-    private final boolean avecVueChoixJoueurs = false;
+    private final boolean avecVueChoixJoueurs = true;
 
     @Override
     public void start(Stage primaryStage) {
@@ -51,6 +51,7 @@ public class TrainsIHM extends Application {
         if (avecVueChoixJoueurs) {
             nomsJoueurs = vueChoixJoueurs.getNomsJoueurs().toArray(new String[0]);
             plateau = vueChoixJoueurs.getPlateau();
+            vueChoixJoueurs.close();
         } else {
             nomsJoueurs = new String[]{"John", "Paul","George","Ringo"};
         }

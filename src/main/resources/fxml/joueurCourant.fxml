@@ -2,26 +2,62 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-<fx:root alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="500.0" prefWidth="2000.0" type="HBox" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="300.0" prefWidth="2000.0" type="HBox" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <VBox prefWidth="1250.0" spacing="10.0" style="-fx-border-width: 1; -fx-border-style: solid; -fx-border-color:black;">
+      <VBox alignment="TOP_CENTER" prefHeight="300.0" prefWidth="1250.0" spacing="10.0" style="-fx-border-width: 1; -fx-border-style: solid; -fx-border-color:black;">
          <children>
-            <Label text="Cartes en main:" underline="true">
+            <Label alignment="TOP_LEFT" text="Cartes en main:" underline="true">
                <font>
-                  <Font name="System Bold" size="15.0" />
+                  <Font name="System Bold" size="16.0" />
                </font>
+               <effect>
+                  <DropShadow height="6.0" radius="2.5" spread="0.86" width="6.0" />
+               </effect>
+               <textFill>
+                  <LinearGradient endX="0.9715639810426541" endY="0.6872037914691943">
+                     <stops>
+                        <Stop>
+                           <color>
+                              <Color red="0.8815789222717285" green="0.726486325263977" blue="0.726486325263977" />
+                           </color>
+                        </Stop>
+                        <Stop offset="0.006711409395973154">
+                           <color>
+                              <Color red="0.3947368562221527" green="0.3070175349712372" blue="0.3070175349712372" />
+                           </color>
+                        </Stop>
+                        <Stop offset="0.530201342281879">
+                           <color>
+                              <Color red="1.0" green="1.0" blue="1.0" />
+                           </color>
+                        </Stop>
+                        <Stop offset="1.0">
+                           <color>
+                              <Color red="0.9210526347160339" green="0.7718079686164856" blue="0.4733187258243561" />
+                           </color>
+                        </Stop>
+                     </stops>
+                  </LinearGradient>
+               </textFill>
             </Label>
-            <FlowPane fx:id="cartesEnMain" prefHeight="500.0" prefWidth="900.0">
+            <FlowPane fx:id="cartesEnMain" alignment="TOP_CENTER" prefHeight="300.0" prefWidth="1233.0" prefWrapLength="100.0" VBox.vgrow="ALWAYS">
                <VBox.margin>
-                  <Insets bottom="70.0" />
-               </VBox.margin></FlowPane>
+                  <Insets />
+               </VBox.margin>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets></FlowPane>
          </children>
          <HBox.margin>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -30,7 +66,7 @@
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
       </VBox>
-      <VBox alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="500.0" prefWidth="750.0">
+      <VBox alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="300.0" prefWidth="750.0">
          <children>
             <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="100.0" spacing="10.0" style="-fx-border-width: 1; -fx-border-style: solid; -fx-border-color:black;">
                <children>
@@ -112,44 +148,100 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </HBox>
-            <HBox spacing="10.0" style="-fx-border-width: 1; -fx-border-style: solid; -fx-border-color:black;">
+            <VBox alignment="TOP_CENTER" prefHeight="300.0" prefWidth="1250.0" spacing="10.0" style="-fx-border-width: 1; -fx-border-style: solid; -fx-border-color:black;">
                <children>
-                  <Label minWidth="110.0" prefWidth="110.0" text="Cartes en jeu:" underline="true">
+                  <Label text="Cartes en jeu:" underline="true">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
+                     <effect>
+                        <DropShadow height="6.0" radius="2.5" spread="0.86" width="6.0" />
+                     </effect>
+                     <textFill>
+                        <LinearGradient endX="0.9715639810426541" endY="0.6872037914691943">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.8815789222717285" green="0.726486325263977" blue="0.726486325263977" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="0.006711409395973154">
+                                 <color>
+                                    <Color red="0.3947368562221527" green="0.3070175349712372" blue="0.3070175349712372" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="0.530201342281879">
+                                 <color>
+                                    <Color red="1.0" green="1.0" blue="1.0" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="0.9210526347160339" green="0.7718079686164856" blue="0.4733187258243561" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </textFill>
                   </Label>
-                  <FlowPane fx:id="cartesEnJeu" alignment="CENTER" maxHeight="200.0" prefHeight="200.0" prefWidth="620.0">
-                     <HBox.margin>
-                        <Insets bottom="70.0" />
-                     </HBox.margin></FlowPane>
+                  <FlowPane fx:id="cartesEnJeu" alignment="TOP_CENTER" maxHeight="200.0" prefHeight="131.0" prefWidth="723.0">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </FlowPane>
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
                <VBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                  <Insets bottom="5.0" left="5.0" right="5.0" />
                </VBox.margin>
-            </HBox>
-            <HBox spacing="10.0" style="-fx-border-width: 1; -fx-border-style: solid; -fx-border-color:black;">
+            </VBox>
+            <VBox alignment="TOP_CENTER" layoutX="10.0" layoutY="62.0" prefHeight="300.0" prefWidth="1250.0" spacing="10.0" style="-fx-border-width: 1; -fx-border-style: solid; -fx-border-color:black;">
                <children>
-                  <Label minWidth="110.0" prefWidth="110.0" text="Cartes reçues:" underline="true">
+                  <Label text="Cartes reçues:" underline="true">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
+                     <effect>
+                        <DropShadow height="6.0" radius="2.5" spread="0.86" width="6.0" />
+                     </effect>
+                     <textFill>
+                        <LinearGradient endX="0.9715639810426541" endY="0.6872037914691943">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.8815789222717285" green="0.726486325263977" blue="0.726486325263977" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="0.006711409395973154">
+                                 <color>
+                                    <Color red="0.3947368562221527" green="0.3070175349712372" blue="0.3070175349712372" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="0.530201342281879">
+                                 <color>
+                                    <Color red="1.0" green="1.0" blue="1.0" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="0.9210526347160339" green="0.7718079686164856" blue="0.4733187258243561" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </textFill>
                   </Label>
-                  <FlowPane fx:id="cartesRecues" alignment="CENTER" maxHeight="200.0" prefHeight="200.0" prefWidth="620.0">
-                     <HBox.margin>
-                        <Insets bottom="70.0" />
-                     </HBox.margin></FlowPane>
+                  <FlowPane fx:id="cartesRecues" alignment="TOP_CENTER" maxHeight="200.0" prefHeight="200.0" prefWidth="620.0" />
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
                <VBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="2.0" />
                </VBox.margin>
-            </HBox>
+            </VBox>
          </children>
       </VBox>
    </children>

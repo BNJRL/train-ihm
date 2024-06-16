@@ -12,7 +12,7 @@
       <Pane fx:id="right" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="722.0" prefWidth="770.0" />
    </right>
    <bottom>
-      <VBox fx:id="bas" prefHeight="195.0" prefWidth="1920.0" BorderPane.alignment="CENTER">
+      <VBox fx:id="bas" prefHeight="300.0" prefWidth="1920.0" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets top="5.0" />
          </BorderPane.margin></VBox>
@@ -26,10 +26,13 @@
       </VBox>
    </top>
    <center>
-      <StackPane fx:id="centre" prefHeight="832.0" prefWidth="919.0" BorderPane.alignment="CENTER">
+      <StackPane fx:id="centre" prefHeight="832.0" prefWidth="1079.0" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets left="5.0" />
          </BorderPane.margin>
       </StackPane>
    </center>
+   <left>
+      <Region prefHeight="640.0" prefWidth="52.0" BorderPane.alignment="CENTER" />
+   </left>
 </fx:root>

@@ -5,23 +5,30 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.stage.Stage?>
 
-<Stage xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root type="Stage" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
     <scene>
         <Scene>
-            <AnchorPane prefHeight="200" prefWidth="200">
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
             <children>
-               <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0">
+               <ImageView fitHeight="577.0" fitWidth="610.0">
+                  <image>
+                     <Image url="@../images/choix.png" />
+                  </image>
+               </ImageView>
+               <VBox alignment="CENTER" layoutX="5.0" layoutY="143.0">
                   <children>
-                     <VBox fx:id="vBox" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
+                     <VBox fx:id="vBoxJoueur" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="600.0">
                         <children>
                            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                               <children>
-                                 <Label text="A combien de personne voulez vous jouer" />
+                                 <Label text="Entrez le nombre de joueurs:" />
                                  <ComboBox fx:id="nbJoueurs" prefWidth="150.0" promptText="nbJoueurs" visibleRowCount="4" />
                               </children>
                            </HBox>
@@ -46,4 +53,4 @@
             </children></AnchorPane>
         </Scene>
     </scene>
-</Stage>
+</fx:root>

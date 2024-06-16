@@ -85,7 +85,7 @@ public class VueJoueurCourant extends HBox{
                         VueCarte carte = new VueCarte();
                         carte.activerExclamation(false);
                         carte.setCarte(c);
-                        carte.setTaille(0.30);
+                        carte.setTaille(0.32);
                         //carte.creerBindingsCartes(cartesEnMain, 1);
                         cartesEnMain.getChildren().add(carte);
 
@@ -135,7 +135,8 @@ public class VueJoueurCourant extends HBox{
                 for (ICarte c : change.getAddedSubList()) {
                     VueCarte carte = new VueCarte();
                     carte.setCarte(c);
-                    carte.setTaille(0.30);
+                    carte.setTaille(0.32);
+                    carte.activerExclamation(false);
                    // carte.creerBindingsCartes(cartesEnMain, 1);
                     cartesEnMain.getChildren().add(carte);
 
@@ -158,6 +159,7 @@ public class VueJoueurCourant extends HBox{
                     VueCarte carte = new VueCarte();
                     carte.setCarte(c);
                     carte.setTaille(0.15);
+                    carte.activerExclamation(false);
                    // carte.creerBindingsCartes(cartesEnJeu, 2);
                     cartesEnJeu.getChildren().add(carte);
 
@@ -179,6 +181,7 @@ public class VueJoueurCourant extends HBox{
                 for (ICarte c : change.getAddedSubList()) {
                     VueCarte carte = new VueCarte();
                     carte.setCarte(c);
+                    carte.activerExclamation(false);
                     carte.setTaille(0.15);
                    // carte.creerBindingsCartes(cartesRecues, 2);
                     cartesRecues.getChildren().add(carte);
