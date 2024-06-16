@@ -4,6 +4,9 @@ import fr.umontpellier.iut.trainsJavaFX.GestionJeu;
 import fr.umontpellier.iut.trainsJavaFX.ICarte;
 import fr.umontpellier.iut.trainsJavaFX.IJeu;
 import fr.umontpellier.iut.trainsJavaFX.mecanique.cartes.*;
+import javafx.beans.binding.Bindings;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -20,9 +23,13 @@ public class VueCustomCartes extends VBox {
     private Set<String> listeCarte;
     private Map<CheckBox, String> map;
 
+    private Button valider;
+    private ObservableList<CheckBox> indeterminateCoches;
+
     public VueCustomCartes(){
         this.listeCarte = genererCartes();
         this.map = new HashMap<>();
+        this.indeterminateCoches = FXCollections.observableArrayList();
         genererBoutons();
         creerBindings();
     }
@@ -37,12 +44,23 @@ public class VueCustomCartes extends VBox {
             CheckBox check = new CheckBox();
             check.setAllowIndeterminate(true);
             Label label = new Label(s);
+
+            check.indeterminateProperty().addListener(
+                    (source, oldValue, newValue) -> {
+                        if (newValue) {
+                            indeterminateCoches.add(check);
+                        } else {
+                            indeterminateCoches.remove(check);
+                        }
+                    });
+
+
             map.put(check, s);
             hb.getChildren().addAll(check, label);
             getChildren().add(hb);
         }
         HBox finale = new HBox();
-        Button valider = new Button("Valider");
+        valider = new Button("Valider");
         valider.setOnAction(actionEvent -> {
             Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
             stage.close();
@@ -67,6 +85,10 @@ public class VueCustomCartes extends VBox {
     private void creerBindings(){
         setAlignment(Pos.CENTER);
         setSpacing(2);
+
+        valider.disableProperty().bind(
+                Bindings.size(indeterminateCoches).greaterThan(22)
+        );
     }
 
     public List<Set<String>> getListes(){

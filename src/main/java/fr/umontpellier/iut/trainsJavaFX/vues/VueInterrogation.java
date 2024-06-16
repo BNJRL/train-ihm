@@ -29,7 +29,6 @@ public class VueInterrogation extends Pane {
         this.vueDuJeu = vueDuJeu;
         loadFXML();
         actionRetour();
-        //configurationImage();
     }
 
     private void loadFXML(){
