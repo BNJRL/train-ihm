@@ -9,7 +9,7 @@
 
 <fx:root prefHeight="1080.0" prefWidth="1920.0" type="BorderPane" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
    <right>
-      <Pane fx:id="right" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="722.0" prefWidth="770.0" />
+      <Pane fx:id="right" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="640.0" prefWidth="694.0" />
    </right>
    <bottom>
       <VBox fx:id="bas" prefHeight="300.0" prefWidth="1920.0" BorderPane.alignment="CENTER">

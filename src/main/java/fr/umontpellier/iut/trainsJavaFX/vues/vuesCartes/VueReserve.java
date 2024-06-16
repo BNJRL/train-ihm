@@ -3,10 +3,16 @@ package fr.umontpellier.iut.trainsJavaFX.vues.vuesCartes;
 import fr.umontpellier.iut.trainsJavaFX.GestionJeu;
 import fr.umontpellier.iut.trainsJavaFX.ICarte;
 import fr.umontpellier.iut.trainsJavaFX.IJeu;
+import fr.umontpellier.iut.trainsJavaFX.vues.IVues;
+import fr.umontpellier.iut.trainsJavaFX.vues.Mediateur;
 import javafx.beans.binding.DoubleBinding;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -23,6 +29,10 @@ public class VueReserve extends Pane {
     private int compteur;
     private int val;
     private Map<ICarte, VueCarteReserve> mapVueCarte;
+    private IVues ivue;
+
+    @FXML
+    private ImageView interrogation;
 
     @FXML
     private GridPane gridPane;
@@ -31,6 +41,7 @@ public class VueReserve extends Pane {
         loadFXML();
         initialize();
         genererReserve();
+        setupInterrogationHandler();
 
     }
     private void loadFXML(){
@@ -86,4 +97,18 @@ public class VueReserve extends Pane {
         }
     }
 
+    private void setupInterrogationHandler() {
+
+        interrogation.setOnMouseClicked(event -> {
+            Mediateur.getInstance().triggerInterrogationClicked(new ActionEvent());
+        });
+
+        interrogation.setOnMouseEntered(event -> {
+            this.interrogation.setImage(new Image("images/icons/point_interrogation_active.png"));
+
+        });
+        interrogation.setOnMouseExited(event -> {
+            this.interrogation.setImage(new Image("images/icons/point_interrogation.png"));
+        });
+    }
 }

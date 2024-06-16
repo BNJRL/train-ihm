@@ -3,10 +3,7 @@ package fr.umontpellier.iut.trainsJavaFX;
 import fr.umontpellier.iut.trainsJavaFX.mecanique.Jeu;
 import fr.umontpellier.iut.trainsJavaFX.mecanique.cartes.FabriqueListeDeCartes;
 import fr.umontpellier.iut.trainsJavaFX.mecanique.plateau.Plateau;
-import fr.umontpellier.iut.trainsJavaFX.vues.DonneesGraphiques;
-import fr.umontpellier.iut.trainsJavaFX.vues.VueChoixJoueurs;
-import fr.umontpellier.iut.trainsJavaFX.vues.VueDuJeu;
-import fr.umontpellier.iut.trainsJavaFX.vues.VueResultats;
+import fr.umontpellier.iut.trainsJavaFX.vues.*;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -28,6 +25,8 @@ public class TrainsIHM extends Application {
     private VueChoixJoueurs vueChoixJoueurs;
     private Stage primaryStage;
     private Jeu jeu;
+    private Scene scene;
+    private VueDuJeu vueDuJeu;
 
     private final boolean avecVueChoixJoueurs = true;
 
@@ -66,9 +65,10 @@ public class TrainsIHM extends Application {
         jeu.finDePartieProperty().addListener(quandLaPartieEstFinie);
 
         GestionJeu.setJeu(jeu);
-        VueDuJeu vueDuJeu = new VueDuJeu(jeu);
+        vueDuJeu = new VueDuJeu(jeu);
+        vueDuJeu.setIhm(this);
 
-        Scene scene = new Scene(vueDuJeu, Screen.getPrimary().getBounds().getWidth() * DonneesGraphiques.pourcentageEcran, Screen.getPrimary().getBounds().getHeight() * DonneesGraphiques.pourcentageEcran); // la scene doit être créée avant de mettre en place les bindings
+        scene = new Scene(vueDuJeu, Screen.getPrimary().getBounds().getWidth() * DonneesGraphiques.pourcentageEcran, Screen.getPrimary().getBounds().getHeight() * DonneesGraphiques.pourcentageEcran); // la scene doit être créée avant de mettre en place les bindings
         vueDuJeu.creerBindings();
         jeu.run(); // le jeu doit être démarré après que les bindings ont été mis en place
 
@@ -105,6 +105,18 @@ public class TrainsIHM extends Application {
             primaryStage.show();
         }
     };
+
+    public void chargerVueInterrogation() {
+        VueInterrogation vueInt = new VueInterrogation(vueDuJeu);
+        vueInt.setIhm(this);
+        primaryStage.setScene(new Scene(vueInt,1280,1280));
+        primaryStage.show();
+    }
+    public void chargerVueDuJeu() {
+        scene.setRoot(vueDuJeu);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
 
     public void arreterJeu() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);

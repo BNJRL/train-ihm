@@ -1,9 +1,6 @@
 package fr.umontpellier.iut.trainsJavaFX.vues;
 
-import fr.umontpellier.iut.trainsJavaFX.GestionJeu;
-import fr.umontpellier.iut.trainsJavaFX.ICarte;
-import fr.umontpellier.iut.trainsJavaFX.IJeu;
-import fr.umontpellier.iut.trainsJavaFX.IJoueur;
+import fr.umontpellier.iut.trainsJavaFX.*;
 import fr.umontpellier.iut.trainsJavaFX.mecanique.cartes.ListeDeCartes;
 import fr.umontpellier.iut.trainsJavaFX.vues.vuesCartes.VueCarte;
 import fr.umontpellier.iut.trainsJavaFX.vues.vuesCartes.VueCarteReserve;
@@ -18,6 +15,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -56,6 +54,8 @@ public class VueDuJeu extends BorderPane implements IVues{
     private Pane right;
     @FXML
     private Pane left;
+
+    private TrainsIHM ihm;
 
 
     private FlowPane choix;
@@ -167,9 +167,8 @@ public class VueDuJeu extends BorderPane implements IVues{
         );
          */
         initialiserExclamation();
-
+        initInterrogation();
     }
-
 
     private final ListChangeListener<ICarte> choixcartelistener = change -> {
         while (change.next()) {
@@ -250,5 +249,16 @@ public class VueDuJeu extends BorderPane implements IVues{
     @Override
     public void onExclamationExited(VueCarte vueCarte) {
         centre.getChildren().remove(1);
+    }
+
+    public void setIhm(TrainsIHM ihm){
+        this.ihm = ihm;
+    }
+
+    private void initInterrogation() {
+        Mediateur.getInstance().setOnInterrogationClicked(event -> {
+            ihm.chargerVueInterrogation();
+        });
+
     }
 }

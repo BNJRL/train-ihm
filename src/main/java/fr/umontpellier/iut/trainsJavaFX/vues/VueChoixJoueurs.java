@@ -56,6 +56,9 @@ public class VueChoixJoueurs extends Stage {
 
     public VueChoixJoueurs() {
         nomsJoueurs = FXCollections.observableArrayList();
+        loadFXML();
+    }
+    private void loadFXML(){
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/choixJoueurs.fxml"));
             loader.setController(this);
