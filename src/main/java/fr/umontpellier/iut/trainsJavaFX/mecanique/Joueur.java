@@ -525,11 +525,13 @@ public class Joueur implements IJoueur {
 
     @Override
     public void laPiocheAEteChoisie() {
+        System.out.println("renvoie pioche choisis");
         getEtatCourant().piocheChoisie();
     }
 
     @Override
     public void laDefausseAEteChoisie() {
+        System.out.println("renvoie defausse choisis");
         getEtatCourant().defausser();
     }
 

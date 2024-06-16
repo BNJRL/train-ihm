@@ -31,8 +31,7 @@ public class VueJoueurCourant extends HBox{
     private FlowPane cartesEnJeu;
     @FXML
     private FlowPane cartesRecues;
-    @FXML
-    private IJoueur joueur;
+
     @FXML
     private Label nbPointsVictoire;
     @FXML
@@ -64,16 +63,11 @@ public class VueJoueurCourant extends HBox{
         } catch (IOException e) {
             e.printStackTrace();
         }
-        this.joueur = GestionJeu.getJeu().joueurCourantProperty().get() ;
 
     }
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
         creerBindings();
-    }
-
-    public IJoueur getJoueur() {
-        return joueur;
     }
 
     public void creerBindings(){
@@ -100,6 +94,20 @@ public class VueJoueurCourant extends HBox{
                     nbCartesPioche.textProperty().bind(newValue.piocheProperty().sizeProperty().asString());
                     nbCartesDefausse.textProperty().bind(newValue.defausseProperty().sizeProperty().asString());
                     nbJetonsGare.textProperty().bind(GestionJeu.getJeu().gareProperty().asString());
+                    argent.setOnMouseClicked(event -> {
+                        System.out.println("argent");
+                        newValue.recevoirArgentAEteChoisi();
+                    });
+                    pioche.setOnMouseClicked(event -> {
+                        System.out.println(newValue.getCouleur());
+                        System.out.println("pioche");
+                        newValue.laPiocheAEteChoisie();
+                    });
+                    defausse.setOnMouseClicked(event ->{
+                        System.out.println(newValue.getCouleur());
+                        System.out.println("defausse");
+                        newValue.laDefausseAEteChoisie();
+                    });
 
                 }
         );
@@ -108,19 +116,6 @@ public class VueJoueurCourant extends HBox{
             j.mainProperty().addListener(changecartelistener);
             j.cartesEnJeuProperty().addListener(jouecartelistener);
             j.cartesRecuesProperty().addListener(recoitcartelistener);
-            argent.setOnMouseClicked(event -> {
-                System.out.println("argent");
-                j.recevoirArgentAEteChoisi();
-            });
-            pioche.setOnMouseClicked(event -> {
-                System.out.println("pioche");
-                j.laPiocheAEteChoisie();
-            });
-            defausse.setOnMouseClicked(event ->{
-                System.out.println("defausse");
-                j.laDefausseAEteChoisie();
-            });
-
         }
 
     }
