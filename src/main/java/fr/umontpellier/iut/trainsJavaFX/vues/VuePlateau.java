@@ -134,10 +134,8 @@ public class VuePlateau extends Pane {
         }
         return numTuile;
     }
-    /**
 
     private void ajoutTuile(int numTuile, double x, double y) {
-        //  A partir du sommet en haut à gauche, coordonnées x et y
         Group tuilePlateau = new Group();
         tuilePlateau.setId(String.valueOf(numTuile));
         SVGPath hexagone = new SVGPath();
@@ -156,40 +154,6 @@ public class VuePlateau extends Pane {
         List<? extends IJoueur> lesJoueurs = GestionJeu.getJeu().getJoueurs();
         Tuile tuileJeu = GestionJeu.getJeu().getTuiles().get(numTuile);
         for (IJoueur j : lesJoueurs) {
-            Circle pionJoueur = creerPionJoueur(numJoueur, x + plateau.getDepX(), y + plateau.getDepY());
-            numJoueur++;
-            tuilePlateau.getChildren().add(pionJoueur);
-            ajouteRail(tuileJeu, (Joueur) j, pionJoueur);
-        }
-
-        if (tuileJeu instanceof TuileVille) {
-            creerGares(x, y, tuilePlateau, (TuileVille) tuileJeu);
-        }
-        tuiles.getChildren().add(tuilePlateau);
-        tuilePlateau.setOnMouseClicked(mouseEvent -> choixTuile(mouseEvent));
-    }
-    */
-    private void ajoutTuile(int numTuile, double x, double y) {
-        //  A partir du sommet en haut à gauche, coordonnées x et y
-        Group tuilePlateau = new Group();
-        tuilePlateau.setId(String.valueOf(numTuile));
-        SVGPath hexagone = new SVGPath();
-        hexagone.setContent(
-                "M" + x + "," + y + " " +
-                        "L" + (x + plateau.getDepX()) + "," + (y - plateau.getDepY()) + " " +
-                        (x + 2 * plateau.getDepX()) + "," + y + " " +
-                        (x + 2 * plateau.getDepX()) + "," + (y + 2 * plateau.getDepY()) + " " +
-                        (x + plateau.getDepX()) + "," + (y + 3 * plateau.getDepY()) + " " +
-                        x + "," + (y + 2 * plateau.getDepY()) + " z"
-        );
-        tuilePlateau.getChildren().add(hexagone);
-        hexagone.setOpacity(0);
-
-        int numJoueur = 0;
-        List<? extends IJoueur> lesJoueurs = GestionJeu.getJeu().getJoueurs();
-        Tuile tuileJeu = GestionJeu.getJeu().getTuiles().get(numTuile);
-        for (IJoueur j : lesJoueurs) {
-            // Calculer les coordonnées du pion en fonction de la position du joueur
             double centerX = x + plateau.getDepX()-15;
             double centerY = y + plateau.getDepY()-15;
             switch (numJoueur) {
@@ -211,7 +175,6 @@ public class VuePlateau extends Pane {
                 }
             }
 
-            // Créer le pion en utilisant VueRail
             Color color = Color.valueOf(CouleursJoueurs.couleursBackgroundJoueur.get(j.getCouleur()));
             VueRail pionRail = creerPionRail(numJoueur, centerX, centerY, color);
             numJoueur++;
@@ -242,41 +205,6 @@ public class VuePlateau extends Pane {
             }
         });
     }
-
-    private void ajouteRail(Tuile t, Joueur j, Circle pionJoueur) {
-        t.getRails().addListener((SetChangeListener<IJoueur>) change -> {
-            if (t.hasRail(j)) {
-                ajouteRailATuile(t, j, pionJoueur);
-            }
-        });
-    }
-
-    private Circle creerPionJoueur(int numPion, double centerX, double centerY) {
-        double posPion = DonneesGraphiques.posPion;
-        double radius = DonneesGraphiques.rayonPion;
-        switch (numPion) {
-            case 0 -> {
-                centerX -= posPion;
-                centerY -= posPion;
-            }
-            case 1 -> {
-                centerX += posPion;
-                centerY -= posPion;
-            }
-            case 2 -> {
-                centerX += posPion;
-                centerY += posPion * .55;
-            }
-            case 3 -> {
-                centerX -= posPion;
-                centerY += posPion * .55;
-            }
-        }
-        Circle cerclePion = new Circle(centerX, centerY, radius);
-        cerclePion.setFill(Color.TRANSPARENT);
-        return cerclePion;
-    }
-
     private VueRail creerPionRail(int numPion, double centerX, double centerY, Color color) {
         VueRail pionRail = new VueRail();
         pionRail.setNum(numPion);
@@ -303,11 +231,6 @@ public class VuePlateau extends Pane {
             case TOKYO -> this.plateau = DonneesPlateauBuilder.PLATEAU_TOKYO;
         }
     }
-
-    private void ajouteRailATuile(Tuile t, Joueur j, Circle c) {
-        c.setFill(Paint.valueOf(CouleursJoueurs.couleursBackgroundJoueur.get(j.getCouleur())));
-    }
-
     private void choixTuile(MouseEvent event) {
         System.out.println("Une tuile a été choisie");
         Group tuile = (Group) event.getSource();
