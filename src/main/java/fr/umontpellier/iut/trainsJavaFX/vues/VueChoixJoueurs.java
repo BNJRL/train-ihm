@@ -94,6 +94,7 @@ public class VueChoixJoueurs extends Stage {
                         tf.setPromptText(defaultName[i]);
                         HBox hb = new HBox();
                         hb.setAlignment(Pos.CENTER);
+                        hb.setSpacing(3);
                         vBoxJoueur.setSpacing(10);
                         hb.getChildren().addAll(l, tf,cp);
                         vBoxJoueur.getChildren().add(hb);

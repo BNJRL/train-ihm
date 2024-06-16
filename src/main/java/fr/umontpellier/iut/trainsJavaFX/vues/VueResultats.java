@@ -10,5 +10,4 @@ public class VueResultats extends Pane {
     public VueResultats(TrainsIHM ihm) {
         this.ihm = ihm;
     }
-
 }
