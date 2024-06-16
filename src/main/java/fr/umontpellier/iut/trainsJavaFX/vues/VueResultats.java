@@ -66,7 +66,7 @@ public class VueResultats extends BorderPane {
     private ArrayList<IJoueur> genererLesPrix(Map<IJoueur, Integer> res){
         HashMap<IJoueur, Integer> map = new HashMap<>(res);
         ArrayList<IJoueur> ordreJoueur = new ArrayList<>();
-        int scoreMax = 0;
+        int scoreMax = -1;
         IJoueur courant =  null;
         while (!map.isEmpty()){
             for(IJoueur j : map.keySet()){
@@ -76,7 +76,7 @@ public class VueResultats extends BorderPane {
                 }
             }
             ordreJoueur.add(courant);
-            scoreMax = 0;
+            scoreMax = -1;
             map.remove(courant);
         }
         return ordreJoueur;
