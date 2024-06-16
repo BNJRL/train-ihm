@@ -9,7 +9,7 @@
 
 <fx:root prefHeight="1280.0" prefWidth="1280.0" type="Pane" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ScrollPane prefHeight="1280.0" prefWidth="1280.0">
+      <ScrollPane hbarPolicy="NEVER" prefHeight="1280.0" prefWidth="1280.0">
          <content>
             <ImageView fitHeight="15352.0" fitWidth="1280.0">
                <image>
