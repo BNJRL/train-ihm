@@ -17,6 +17,8 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -98,6 +100,13 @@ public class VueChoixJoueurs extends Stage {
                             modificationCouleur(finalI, cp);
                         });
                         tf.setPromptText(defaultName[i]);
+
+                        tf.addEventHandler(KeyEvent.KEY_PRESSED, event ->{
+                            if(event.getCode() == KeyCode.ENTER){
+                                tf.setText(tf.getPromptText());
+                            }
+                        });
+
                         HBox hb = new HBox();
                         hb.setAlignment(Pos.CENTER);
                         hb.setSpacing(3);
