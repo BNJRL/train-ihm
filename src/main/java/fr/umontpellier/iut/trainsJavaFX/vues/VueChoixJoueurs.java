@@ -15,6 +15,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
@@ -23,9 +24,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 import static java.lang.Double.valueOf;
 
@@ -48,9 +47,13 @@ public class VueChoixJoueurs extends Stage {
     private VBox vBoxJoueur;
     @FXML
     private Button valider;
+    @FXML
+    private Button choixCarte;
 
     @FXML
     private HBox save;
+    private VueCustomCartes vCC;
+    private Scene sceneCustomCartes;
 
     private final static String[] defaultName = {"Benjamin","Samuel","Alice","Bernard"};
 
@@ -118,6 +121,15 @@ public class VueChoixJoueurs extends Stage {
         valider.setOnAction( actionEvent ->{
              setListeDesNomsDeJoueurs();
         });
+        choixCarte.setOnAction(actionEvent -> {
+            if(vCC == null){
+                vCC = new VueCustomCartes();
+                sceneCustomCartes = new Scene(vCC);
+            }
+            Stage stage = new Stage();
+            stage.setScene(sceneCustomCartes);
+            stage.show();
+        });
 
 
 
@@ -144,6 +156,20 @@ public class VueChoixJoueurs extends Stage {
      */
     public void setNomsDesJoueursDefinisListener(ListChangeListener<String> quandLesNomsDesJoueursSontDefinis) {
         nomsJoueurs.addListener(quandLesNomsDesJoueursSontDefinis);
+    }
+    public Set<String> cartesCustomVoulues(){
+        Set<String> set = new HashSet<>();
+        if(vCC != null){
+            set = new HashSet<>(vCC.getListes().get(0));
+        }
+        return set;
+    }
+    public Set<String> cartesCustomEcartes(){
+        Set<String> set = new HashSet<>();
+        if(vCC != null){
+            set = new HashSet<>(vCC.getListes().get(1));
+        }
+        return set;
     }
 
     /**

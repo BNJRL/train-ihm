@@ -16,10 +16,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class TrainsIHM extends Application {
     private VueChoixJoueurs vueChoixJoueurs;
@@ -49,17 +46,22 @@ public class TrainsIHM extends Application {
     public void demarrerPartie() {
         String[] nomsJoueurs;
         Plateau plateau = Plateau.OSAKA;
+
+        Set<String> cartesVoulues = new HashSet<>();
+        Set<String> cartesPasVoulues = new HashSet<>();
+
         if (avecVueChoixJoueurs) {
             nomsJoueurs = vueChoixJoueurs.getNomsJoueurs().toArray(new String[0]);
             plateau = vueChoixJoueurs.getPlateau();
             vueChoixJoueurs.close();
+            cartesVoulues = vueChoixJoueurs.cartesCustomVoulues();
+            cartesPasVoulues = vueChoixJoueurs.cartesCustomEcartes();
         } else {
             nomsJoueurs = new String[]{"John", "Paul","George","Ringo"};
         }
-        // Tirer aléatoirement 8 cartes préparation
-        List<String> cartesPreparation = new ArrayList<>(FabriqueListeDeCartes.getNomsCartesPreparation());
-        Collections.shuffle(cartesPreparation);
-        String[] nomsCartes = cartesPreparation.subList(0, 8).toArray(new String[0]);
+
+        String[] nomsCartes = cartesAChoisir(cartesVoulues, cartesPasVoulues);
+
         jeu = new Jeu(nomsJoueurs, nomsCartes, plateau);
 
         jeu.finDePartieProperty().addListener(quandLaPartieEstFinie);
@@ -90,6 +92,29 @@ public class TrainsIHM extends Application {
             event.consume();
         });
         primaryStage.show();
+    }
+
+    private String[] cartesAChoisir(Set<String> cartesVoulues, Set<String> cartesPasVoulues){
+
+        List<String> cartesPreparation = new ArrayList<>(FabriqueListeDeCartes.getNomsCartesPreparation());
+        cartesPreparation.removeAll(cartesPasVoulues);
+        Collections.shuffle(cartesPreparation);
+
+
+        ArrayList<String> nomsCartesFinales = new ArrayList<>();
+        int c = 0;
+        while(!cartesVoulues.isEmpty() && c<8){
+            String str = cartesVoulues.iterator().next();
+            nomsCartesFinales.add(str);
+            cartesVoulues.remove(str);
+            c++;
+        }
+        cartesPreparation.removeAll(nomsCartesFinales);
+        Collections.shuffle(cartesPreparation);
+        for(int i = c; i<8;i++){
+            nomsCartesFinales.add(cartesPreparation.get(i-c));
+        }
+        return nomsCartesFinales.toArray(new String[8]);
     }
 
     private final ListChangeListener<String> quandLesNomsJoueursSontDefinis = change -> {

@@ -45,6 +45,7 @@
                                  <Font size="15.0" />
                               </font></Label>
                            <ComboBox fx:id="plateau" prefWidth="150.0" promptText="plateau" />
+                           <Button fx:id="choixCarte" mnemonicParsing="false" prefHeight="25.0" prefWidth="102.0" text="Cartes avancées" />
                         </children>
                      </HBox>
                      <Button fx:id="valider" mnemonicParsing="false" text="Valider">
