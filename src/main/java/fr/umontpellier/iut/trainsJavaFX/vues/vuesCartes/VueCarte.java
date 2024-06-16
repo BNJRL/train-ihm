@@ -175,7 +175,7 @@ public class VueCarte extends Pane {
         });
 
         this.setOnMouseClicked(event -> {
-            originalY = this.getTranslateY();
+            originalY = this.getTranslateY()+20;
         });
     }
 
