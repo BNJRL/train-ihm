@@ -43,6 +43,7 @@ public class VueCustomCartes extends VBox {
     private void genererBoutons(){
         for(String s : listeCarte){
             HBox hb = new HBox();
+            hb.setSpacing(5);
             CheckBox check = new CheckBox();
             check.setAllowIndeterminate(true);
             Label label = new Label(s);

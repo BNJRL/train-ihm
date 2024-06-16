@@ -76,8 +76,20 @@
                            <image>
                               <Image url="@../images/icons/star.png" />
                            </image>
+                           <effect>
+                              <DropShadow height="10.0" radius="4.5" spread="0.95" width="10.0" />
+                           </effect>
                         </ImageView>
-                        <Label fx:id="nbPointsVictoire" prefWidth="50.0" />
+                        <Label fx:id="nbPointsVictoire" prefWidth="50.0" text="0" textFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding>
+                           <effect>
+                              <DropShadow height="6.35" radius="2.245" spread="0.87" width="4.63" />
+                           </effect></Label>
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="100.0">
@@ -86,8 +98,20 @@
                            <image>
                               <Image url="@../images/boutons/rails.png" />
                            </image>
+                           <effect>
+                              <DropShadow height="6.0" radius="2.5" spread="0.26" width="6.0" />
+                           </effect>
                         </ImageView>
-                        <Label fx:id="nbJetonsRails" prefWidth="50.0" />
+                        <Label fx:id="nbJetonsRails" prefWidth="50.0" text="20" textFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding>
+                           <effect>
+                              <DropShadow height="6.35" radius="2.245" spread="0.87" width="4.63" />
+                           </effect></Label>
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="100.0">
@@ -96,8 +120,20 @@
                            <image>
                               <Image url="@../images/icons/gare.png" />
                            </image>
+                           <effect>
+                              <DropShadow height="5.0" radius="2.0" width="5.0" />
+                           </effect>
                         </ImageView>
-                        <Label fx:id="nbJetonsGare" prefWidth="50.0" />
+                        <Label fx:id="nbJetonsGare" prefWidth="50.0" text="30" textFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding>
+                           <effect>
+                              <DropShadow height="6.35" radius="2.245" spread="0.87" width="4.63" />
+                           </effect></Label>
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="100.0" spacing="2.0">
@@ -106,8 +142,20 @@
                            <image>
                               <Image url="@../images/icons/coins.png" />
                            </image>
+                           <effect>
+                              <DropShadow height="10.0" radius="4.5" spread="0.72" width="10.0" />
+                           </effect>
                         </ImageView>
-                        <Label fx:id="nbArgent" prefWidth="50.0" />
+                        <Label fx:id="nbArgent" prefWidth="50.0" text="0" textFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding>
+                           <effect>
+                              <DropShadow height="6.35" radius="2.245" spread="0.87" width="4.63" />
+                           </effect></Label>
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="100.0">
@@ -116,8 +164,20 @@
                            <image>
                               <Image url="@../images/boutons/rail.png" />
                            </image>
+                           <effect>
+                              <DropShadow height="10.0" radius="4.5" spread="0.25" width="10.0" />
+                           </effect>
                         </ImageView>
-                        <Label fx:id="nbPointsRails" prefWidth="50.0" />
+                        <Label fx:id="nbPointsRails" prefWidth="50.0" text="0" textFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding>
+                           <effect>
+                              <DropShadow height="6.35" radius="2.245" spread="0.87" width="4.63" />
+                           </effect></Label>
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="100.0">
@@ -126,8 +186,20 @@
                            <image>
                               <Image url="@../images/icons/pioche.png" />
                            </image>
+                           <effect>
+                              <DropShadow height="10.0" radius="4.5" spread="0.72" width="10.0" />
+                           </effect>
                         </ImageView>
-                        <Label fx:id="nbCartesPioche" prefWidth="50.0" />
+                        <Label fx:id="nbCartesPioche" prefWidth="50.0" text="0" textFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding>
+                           <effect>
+                              <DropShadow height="6.35" radius="2.245" spread="0.87" width="4.63" />
+                           </effect></Label>
                      </children>
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="100.0">
@@ -136,8 +208,20 @@
                            <image>
                               <Image url="@../images/icons/cards.png" />
                            </image>
+                           <effect>
+                              <DropShadow height="10.0" radius="4.5" spread="0.72" width="10.0" />
+                           </effect>
                         </ImageView>
-                        <Label fx:id="nbCartesDefausse" prefWidth="50.0" />
+                        <Label fx:id="nbCartesDefausse" prefWidth="50.0" text="0" textFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding>
+                           <effect>
+                              <DropShadow height="6.35" radius="2.245" spread="0.87" width="4.63" />
+                           </effect></Label>
                      </children>
                   </HBox>
                </children>
