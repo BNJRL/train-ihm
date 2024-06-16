@@ -4,6 +4,8 @@ import fr.umontpellier.iut.trainsJavaFX.GestionJeu;
 import fr.umontpellier.iut.trainsJavaFX.ICarte;
 import fr.umontpellier.iut.trainsJavaFX.mecanique.cartes.Carte;
 import fr.umontpellier.iut.trainsJavaFX.mecanique.cartes.ListeDeCartes;
+import javafx.animation.SequentialTransition;
+import javafx.animation.TranslateTransition;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -18,6 +20,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.util.Duration;
 
 import java.io.IOException;
 
@@ -34,6 +37,10 @@ public class VueCarte extends Pane {
     private ImageView exclamation;
     private ICarte carte;
     private boolean etatExclamation;
+
+    private TranslateTransition currentTransition;
+    private double originalY = 0.0;
+
     public VueCarte(){
         loadFXML();
         setupExclamationClickHandler();
@@ -125,6 +132,9 @@ public class VueCarte extends Pane {
             this.etatExclamation = true;
         }
     }
+    public void activerAnimation(){
+        setupAnimationMouvement();
+    }
 
     private void setupExclamationClickHandler() {
         exclamation.setOnMouseEntered(event -> {
@@ -133,6 +143,7 @@ public class VueCarte extends Pane {
                     onExclamationEntered.handle(new ActionEvent(this, null));
                 }
                 this.exclamation.setImage(new Image("images/icons/point_exclamation_active.png"));
+
             }
         });
         exclamation.setOnMouseExited(event -> {
@@ -142,9 +153,40 @@ public class VueCarte extends Pane {
 
                 }
                 this.exclamation.setImage(new Image("images/icons/point_exclamation.png"));
+
             }
         });
     }
+    private void setupAnimationMouvement() {
+        this.setOnMouseEntered(event -> {
+            if (currentTransition != null) {
+                currentTransition.stop(); // Arrête l'animation actuelle si elle est en cours
+            }
+            currentTransition = createTranslateTransition(-20); // Crée une nouvelle animation vers le haut
+            currentTransition.play();
+        });
+
+        this.setOnMouseExited(event -> {
+            if (currentTransition != null) {
+                currentTransition.stop(); // Arrête l'animation actuelle si elle est en cours
+            }
+            currentTransition = createTranslateTransition(originalY); // Réinitialise la position à l'origine
+            currentTransition.play();
+        });
+
+        // Capturer la position Y d'origine lorsque la carte est créée
+        this.setOnMouseClicked(event -> {
+            originalY = this.getTranslateY();
+        });
+    }
+
+    private TranslateTransition createTranslateTransition(double toY) {
+        Duration duration = Duration.millis(150);
+        TranslateTransition tr = new TranslateTransition(duration, this);
+        tr.setToY(toY);
+        return tr;
+    }
+
     public void setOnExclamationEntered(EventHandler<ActionEvent> onExclamationEntered) {
 
         this.onExclamationEntered = onExclamationEntered;

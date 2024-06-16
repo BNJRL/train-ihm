@@ -42,6 +42,7 @@ public class VueCarteReserve extends Pane {
         this.carte = carte;
         vue = new VueCarte();
         vue.setCarte(carte);
+        vue.activerAnimation();
         getChildren().add(vue);
     }
 

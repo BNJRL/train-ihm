@@ -8,6 +8,8 @@ import fr.umontpellier.iut.trainsJavaFX.vues.vuesCartes.VueReserve;
 import fr.umontpellier.iut.trainsJavaFX.vues.vuesJoueurs.VueAutresJoueurs;
 import fr.umontpellier.iut.trainsJavaFX.vues.vuesJoueurs.VueGestionAutresJoueurs;
 import fr.umontpellier.iut.trainsJavaFX.vues.vuesJoueurs.VueJoueurCourant;
+import javafx.animation.SequentialTransition;
+import javafx.animation.TranslateTransition;
 import javafx.collections.ListChangeListener;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -24,6 +26,8 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.scene.transform.Translate;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -240,10 +244,21 @@ public class VueDuJeu extends BorderPane implements IVues{
     @Override
     public void onExclamationEntered(VueCarte vueCarte) {
         VueCarte nouvelle = new VueCarte();
+        nouvelle.setTranslateX(-500);
+        nouvelle.setTranslateY(-50);
         nouvelle.setCarte(vueCarte.getCarte());
         nouvelle.activerExclamation(false);
         nouvelle.setTaille(this.getWidth()/1920);
         centre.getChildren().add(nouvelle);
+        animationCarte(nouvelle);
+    }
+    private void animationCarte(VueCarte vue){
+        Duration duration = Duration.millis(500);
+        TranslateTransition tr = new TranslateTransition(duration, vue);
+        tr.setByX(400);
+
+        SequentialTransition st = new SequentialTransition(tr);
+        st.play();
     }
 
     @Override
