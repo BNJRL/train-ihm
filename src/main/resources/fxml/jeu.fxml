@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.StackPane?>
@@ -15,7 +17,14 @@
       <VBox fx:id="bas" prefHeight="280.0" prefWidth="1920.0" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets top="5.0" />
-         </BorderPane.margin></VBox>
+         </BorderPane.margin>
+         <children>
+            <HBox fx:id="zoneAction" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="passer" mnemonicParsing="false" prefHeight="100.0" prefWidth="112.0" text="Passer" />
+               </children>
+            </HBox>
+         </children></VBox>
    </bottom>
    <top>
       <VBox prefHeight="135.0" prefWidth="1920.0" BorderPane.alignment="CENTER">

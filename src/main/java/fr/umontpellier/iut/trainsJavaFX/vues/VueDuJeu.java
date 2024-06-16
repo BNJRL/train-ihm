@@ -72,6 +72,7 @@ public class VueDuJeu extends BorderPane implements IVues{
 
     private Label nomJoueur;
 
+    @FXML
     private Button passer;
     @FXML
     private VuePlateau plateau;
@@ -103,9 +104,10 @@ public class VueDuJeu extends BorderPane implements IVues{
     }
 
     private void gestionBas(){
-        passer = new Button("Passer");
-        passer.setPrefSize(100, 500);
+        //passer = new Button("Passer");
+        passer.setPrefSize(300, 500);
         passer.setMinWidth(50);
+       // passer.setGraphic(new ImageView("/images/boutons/passer.png"));
         nomJoueur = new Label();
         instruction = new Label();
         nomJoueur.setFont(Font.font("Arial", FontWeight.BOLD, 20));
@@ -139,6 +141,7 @@ public class VueDuJeu extends BorderPane implements IVues{
     public void creerBindings() {
         joueurCourant.creerBindings();
         passer.setOnAction(event  -> jeu.passerAEteChoisi());
+
         instruction.textProperty().bind(jeu.instructionProperty());
         plateau.prefWidthProperty().bind(getScene().widthProperty());
         plateau.prefHeightProperty().bind(getScene().heightProperty());
