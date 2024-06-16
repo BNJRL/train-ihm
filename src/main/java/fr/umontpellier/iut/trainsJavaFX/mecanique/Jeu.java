@@ -79,7 +79,7 @@ public class Jeu implements IJeu {
         this.nomVille = plateau.getNomVille();
         this.tuiles = plateau.makeTuiles();
 
-        this.nbJetonsGare = new SimpleIntegerProperty(30);
+        this.nbJetonsGare = new SimpleIntegerProperty(1);
         this.cartesEcartees = new ListeDeCartes();
 
         // construction des piles de réserve
@@ -94,7 +94,7 @@ public class Jeu implements IJeu {
         // création des joueurs
         this.joueurs = new ArrayList<>();
         ArrayList<CouleurJoueur> couleurs = new ArrayList<>(List.of(CouleurJoueur.values()));
-        Collections.shuffle(couleurs);
+        //Collections.shuffle(couleurs);
         for (String nomJoueur : nomsJoueurs) {
             this.joueurs.add(new Joueur(this, nomJoueur, couleurs.remove(0)));
         }
