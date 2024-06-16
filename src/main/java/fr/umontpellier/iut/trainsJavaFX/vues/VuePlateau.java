@@ -134,6 +134,7 @@ public class VuePlateau extends Pane {
         }
         return numTuile;
     }
+    /**
 
     private void ajoutTuile(int numTuile, double x, double y) {
         //  A partir du sommet en haut à gauche, coordonnées x et y
@@ -159,6 +160,64 @@ public class VuePlateau extends Pane {
             numJoueur++;
             tuilePlateau.getChildren().add(pionJoueur);
             ajouteRail(tuileJeu, (Joueur) j, pionJoueur);
+        }
+
+        if (tuileJeu instanceof TuileVille) {
+            creerGares(x, y, tuilePlateau, (TuileVille) tuileJeu);
+        }
+        tuiles.getChildren().add(tuilePlateau);
+        tuilePlateau.setOnMouseClicked(mouseEvent -> choixTuile(mouseEvent));
+    }
+    */
+    private void ajoutTuile(int numTuile, double x, double y) {
+        //  A partir du sommet en haut à gauche, coordonnées x et y
+        Group tuilePlateau = new Group();
+        tuilePlateau.setId(String.valueOf(numTuile));
+        SVGPath hexagone = new SVGPath();
+        hexagone.setContent(
+                "M" + x + "," + y + " " +
+                        "L" + (x + plateau.getDepX()) + "," + (y - plateau.getDepY()) + " " +
+                        (x + 2 * plateau.getDepX()) + "," + y + " " +
+                        (x + 2 * plateau.getDepX()) + "," + (y + 2 * plateau.getDepY()) + " " +
+                        (x + plateau.getDepX()) + "," + (y + 3 * plateau.getDepY()) + " " +
+                        x + "," + (y + 2 * plateau.getDepY()) + " z"
+        );
+        tuilePlateau.getChildren().add(hexagone);
+        hexagone.setOpacity(0);
+
+        int numJoueur = 0;
+        List<? extends IJoueur> lesJoueurs = GestionJeu.getJeu().getJoueurs();
+        Tuile tuileJeu = GestionJeu.getJeu().getTuiles().get(numTuile);
+        for (IJoueur j : lesJoueurs) {
+            // Calculer les coordonnées du pion en fonction de la position du joueur
+            double centerX = x + plateau.getDepX()-15;
+            double centerY = y + plateau.getDepY()-15;
+            switch (numJoueur) {
+                case 0 -> {
+                    centerX -= DonneesGraphiques.posPion;
+                    centerY -= DonneesGraphiques.posPion;
+                }
+                case 1 -> {
+                    centerX += DonneesGraphiques.posPion;
+                    centerY -= DonneesGraphiques.posPion;
+                }
+                case 2 -> {
+                    centerX += DonneesGraphiques.posPion;
+                    centerY += DonneesGraphiques.posPion * .55;
+                }
+                case 3 -> {
+                    centerX -= DonneesGraphiques.posPion;
+                    centerY += DonneesGraphiques.posPion * .55;
+                }
+            }
+
+            // Créer le pion en utilisant VueRail
+            Color color = Color.valueOf(CouleursJoueurs.couleursBackgroundJoueur.get(j.getCouleur()));
+            VueRail pionRail = creerPionRail(numJoueur, centerX, centerY, color);
+            numJoueur++;
+            tuilePlateau.getChildren().add(pionRail);
+
+            ajouteRail(tuileJeu, (Joueur) j, pionRail);
         }
 
         if (tuileJeu instanceof TuileVille) {
@@ -216,6 +275,26 @@ public class VuePlateau extends Pane {
         Circle cerclePion = new Circle(centerX, centerY, radius);
         cerclePion.setFill(Color.TRANSPARENT);
         return cerclePion;
+    }
+
+    private VueRail creerPionRail(int numPion, double centerX, double centerY, Color color) {
+        VueRail pionRail = new VueRail();
+        pionRail.setNum(numPion);
+        pionRail.setTranslateX(centerX);
+        pionRail.setTranslateY(centerY);
+
+        pionRail.setColor(color);
+        pionRail.setOpacity(0);
+
+        return pionRail;
+    }
+    private void ajouteRail(Tuile t, Joueur j, VueRail pionRail) {
+        t.getRails().addListener((SetChangeListener<IJoueur>) change -> {
+            if (t.hasRail(j)) {
+                pionRail.setColor(Paint.valueOf(CouleursJoueurs.couleursBackgroundJoueur.get(j.getCouleur())));
+                pionRail.setOpacity(1);
+            }
+        });
     }
 
     public void setDonneesPlateau(Plateau plateau) {
