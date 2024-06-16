@@ -150,18 +150,20 @@ public class VueChoixJoueurs extends Stage {
         ArrayList<String> tempNamesList = new ArrayList<>();
         boolean possible = true;
         for(Node n : vBoxJoueur.getChildren()){
-            n = (HBox) n;
-            for(Node nA : ((HBox) n).getChildren()){
-                if (nA instanceof TextField){
-                    String texte = ((TextField) nA).getText().trim();
-                    if(texte.isEmpty()) {
-                        possible = false;
-                        break;
-                    } else{
-                        tempNamesList.add(texte);
+            if(n instanceof HBox){
+                for(Node nA : ((HBox) n).getChildren()){
+                    if (nA instanceof TextField){
+                        String texte = ((TextField) nA).getText().trim();
+                        if(texte.isEmpty()) {
+                            possible = false;
+                            break;
+                        } else{
+                            tempNamesList.add(texte);
+                        }
                     }
                 }
             }
+
             if(!possible) break;
         }
         if(possible){
