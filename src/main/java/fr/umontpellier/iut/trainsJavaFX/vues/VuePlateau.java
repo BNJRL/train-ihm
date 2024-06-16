@@ -149,7 +149,7 @@ public class VuePlateau extends Pane {
                         x + "," + (y + 2 * plateau.getDepY()) + " z"
         );
         tuilePlateau.getChildren().add(hexagone);
-        //hexagone.setOpacity(0);
+        hexagone.setOpacity(0);
 
         int numJoueur = 0;
         List<? extends IJoueur> lesJoueurs = GestionJeu.getJeu().getJoueurs();
