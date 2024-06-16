@@ -78,7 +78,7 @@ public class VueChoixJoueurs extends Stage {
     public void initialize() {
         setTitle("Personnalisation de la partie");
         nbJoueurs.getItems().addAll("2", "3", "4");
-        nbJoueurs.valueProperty().set("Combien ?");
+        nbJoueurs.valueProperty().set("");
 
         plateau.getItems().addAll("OSAKA", "TOKYO");
         plateau.valueProperty().set(plateau.getItems().iterator().next());
