@@ -27,7 +27,7 @@
                   <children>
                      <VBox fx:id="vBoxJoueur" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="600.0">
                         <children>
-                           <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                           <HBox fx:id="save" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                               <children>
                                  <Label text="Sélectionnez le nombre de participants :">
                                     <font>

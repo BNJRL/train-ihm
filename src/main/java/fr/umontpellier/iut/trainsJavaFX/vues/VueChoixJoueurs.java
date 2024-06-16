@@ -49,6 +49,9 @@ public class VueChoixJoueurs extends Stage {
     @FXML
     private Button valider;
 
+    @FXML
+    private HBox save;
+
     private final static String[] defaultName = {"Benjamin","Samuel","Alice","Bernard"};
 
     public VueChoixJoueurs() {
@@ -95,6 +98,12 @@ public class VueChoixJoueurs extends Stage {
                         hb.getChildren().addAll(l, tf,cp);
                         vBoxJoueur.getChildren().add(hb);
                     }
+                    Button retour = new Button("Retour");
+                    retour.setOnAction(actionEvent -> {
+                        vBoxJoueur.getChildren().clear();
+                        vBoxJoueur.getChildren().add(save);
+                    });
+                    vBoxJoueur.getChildren().add(retour);
 
                 });
         plateau.valueProperty().addListener(
