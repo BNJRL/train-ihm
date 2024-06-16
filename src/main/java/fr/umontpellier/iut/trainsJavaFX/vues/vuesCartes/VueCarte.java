@@ -160,21 +160,20 @@ public class VueCarte extends Pane {
     private void setupAnimationMouvement() {
         this.setOnMouseEntered(event -> {
             if (currentTransition != null) {
-                currentTransition.stop(); // Arrête l'animation actuelle si elle est en cours
+                currentTransition.stop();
             }
-            currentTransition = createTranslateTransition(-20); // Crée une nouvelle animation vers le haut
+            currentTransition = createTranslateTransition(-20);
             currentTransition.play();
         });
 
         this.setOnMouseExited(event -> {
             if (currentTransition != null) {
-                currentTransition.stop(); // Arrête l'animation actuelle si elle est en cours
+                currentTransition.stop();
             }
-            currentTransition = createTranslateTransition(originalY); // Réinitialise la position à l'origine
+            currentTransition = createTranslateTransition(originalY);
             currentTransition.play();
         });
 
-        // Capturer la position Y d'origine lorsque la carte est créée
         this.setOnMouseClicked(event -> {
             originalY = this.getTranslateY();
         });
