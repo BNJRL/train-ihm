@@ -25,11 +25,13 @@ public class VueCustomCartes extends VBox {
 
     private Button valider;
     private ObservableList<CheckBox> indeterminateCoches;
+    private ObservableList<CheckBox> checkCoches;
 
     public VueCustomCartes(){
         this.listeCarte = genererCartes();
         this.map = new HashMap<>();
         this.indeterminateCoches = FXCollections.observableArrayList();
+        this.checkCoches = FXCollections.observableArrayList();
         genererBoutons();
         creerBindings();
     }
@@ -53,6 +55,15 @@ public class VueCustomCartes extends VBox {
                             indeterminateCoches.remove(check);
                         }
                     });
+            check.selectedProperty().addListener(
+                    (source, oldValue, newValue) -> {
+                        if(newValue) {
+                            checkCoches.add(check);
+                        } else{
+                            checkCoches.remove(check);
+                        }
+                    }
+            );
 
 
             map.put(check, s);
@@ -87,7 +98,7 @@ public class VueCustomCartes extends VBox {
         setSpacing(2);
 
         valider.disableProperty().bind(
-                Bindings.size(indeterminateCoches).greaterThan(22)
+                Bindings.size(indeterminateCoches).greaterThan(22).or(Bindings.size(checkCoches).greaterThan(8))
         );
     }
 
