@@ -220,10 +220,10 @@ public class VueDuJeu extends BorderPane implements IVues{
 
         BackgroundImage backgroundImage = new BackgroundImage(
                 fond.getImage(),
-                BackgroundRepeat.NO_REPEAT, // Répétition de l'image (aucune répétition)
                 BackgroundRepeat.NO_REPEAT,
-                BackgroundPosition.DEFAULT, // Position de l'image (par défaut)
-                BackgroundSize.DEFAULT // Taille de l'image (par défaut)
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.DEFAULT,
+                BackgroundSize.DEFAULT
         );
 
         setBackground(new Background(backgroundImage));

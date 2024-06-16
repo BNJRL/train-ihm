@@ -9,6 +9,7 @@ import fr.umontpellier.iut.trainsJavaFX.vues.VueDuJeu;
 import fr.umontpellier.iut.trainsJavaFX.vues.VueResultats;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -61,6 +62,9 @@ public class TrainsIHM extends Application {
         Collections.shuffle(cartesPreparation);
         String[] nomsCartes = cartesPreparation.subList(0, 8).toArray(new String[0]);
         jeu = new Jeu(nomsJoueurs, nomsCartes, plateau);
+
+        jeu.finDePartieProperty().addListener(quandLaPartieEstFinie);
+
         GestionJeu.setJeu(jeu);
         VueDuJeu vueDuJeu = new VueDuJeu(jeu);
 
@@ -68,7 +72,8 @@ public class TrainsIHM extends Application {
         vueDuJeu.creerBindings();
         jeu.run(); // le jeu doit être démarré après que les bindings ont été mis en place
 
-        //VueResultats vueResultats = new VueResultats(this);
+
+
 
         primaryStage.setMinWidth(Screen.getPrimary().getBounds().getWidth() / 2.2);
         primaryStage.setMinHeight(Screen.getPrimary().getBounds().getHeight() / 2.2);
@@ -90,6 +95,15 @@ public class TrainsIHM extends Application {
     private final ListChangeListener<String> quandLesNomsJoueursSontDefinis = change -> {
         if (!vueChoixJoueurs.getNomsJoueurs().isEmpty())
             demarrerPartie();
+    };
+
+    private final ChangeListener<Boolean> quandLaPartieEstFinie = (source, oldValue, newValue) -> {
+        if(jeu.finDePartieProperty().get()){
+            VueResultats vueResultats = new VueResultats(this);
+            Scene scene = new Scene(vueResultats);
+            primaryStage.setScene(scene);
+            primaryStage.show();
+        }
     };
 
     public void arreterJeu() {
