@@ -62,19 +62,31 @@ public class VueCarte extends Pane {
         imageView = new ImageView("images/cartes/"+convertisseurTexte(carte.getNom())+".png");
         image.setGraphic(imageView);
     }
-    public void creerBindingsCartes(FlowPane parents, int rang) {
+    public void creerBindingsCartes(double rang) {
 
         sceneProperty().addListener((observable, oldScene, newScene) -> {
             if (newScene != null) {
                 imageView.fitWidthProperty().bind(Bindings.createDoubleBinding(() -> {
-                    double padding = parents.getPadding().getLeft() + parents.getPadding().getRight();
-                    int nbImage = 16;
+                    int nbImage = 14;
                     double nouvelTaille = newScene.getWidth();
                     return (nouvelTaille / nbImage) / rang;
                 }, newScene.widthProperty()));
                 imageView.fitHeightProperty().bind(imageView.fitWidthProperty().multiply(1.4));
+
+                image.prefWidthProperty().bind(Bindings.createDoubleBinding(() -> {
+                    int nbImage = 14;
+                    double nouvelTaille = newScene.getWidth();
+                    return (nouvelTaille / nbImage) / rang;
+                }, newScene.widthProperty()));
+                image.prefHeightProperty().bind(image.prefWidthProperty().multiply(1.4));
+
+                this.prefWidthProperty().bind(Bindings.createDoubleBinding(() -> {
+                    int nbImage = 14;
+                    double nouvelTaille = newScene.getWidth();
+                    return (nouvelTaille / nbImage) / rang;
+                }, newScene.widthProperty()));
+                this.prefHeightProperty().bind(this.prefWidthProperty().multiply(1.4));
             }
-            image.setGraphic(imageView);
         });
 
 
