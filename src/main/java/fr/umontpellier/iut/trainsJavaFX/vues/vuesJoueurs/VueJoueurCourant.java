@@ -78,6 +78,7 @@ public class VueJoueurCourant extends HBox{
                     for (ICarte c : l) {
                         VueCarte carte = new VueCarte();
                         carte.activerExclamation(false);
+                        carte.activerAnimation();
                         carte.setCarte(c);
                         //carte.setTaille(0.32);
                         carte.creerBindingsCartes(1);
@@ -131,6 +132,7 @@ public class VueJoueurCourant extends HBox{
                     VueCarte carte = new VueCarte();
                     carte.setCarte(c);
                     carte.activerExclamation(false);
+                    carte.activerAnimation();
                     //carte.setTaille(0.32);
                     carte.creerBindingsCartes(1);
                     cartesEnMain.getChildren().add(carte);
